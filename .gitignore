@@ -1,3 +1,6 @@
+# Include premake executable
+!source/utils/premake/premake5.exe
+
 # Dependencies
 source/utils/deps
 
