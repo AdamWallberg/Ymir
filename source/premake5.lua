@@ -34,6 +34,12 @@ solution("YmirSolution")
 	
 	configuration {}
 	
+	linkoptions {
+		"/NODEFAULTLIB:MSVCRT",
+		"/NODEFAULTLIB:LIBCMT",
+		"/ignore:4099",
+	}
+	
 project("Ymir")
 	kind "ConsoleApp"
 	
