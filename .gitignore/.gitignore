@@ -1,0 +1,11 @@
+# Dependencies
+source/utils/deps
+
+# Generated files
+*.sln
+*.vcxproj
+*.db
+*.opendb
+*.filters
+source/.vs
+source/build
