@@ -3,7 +3,7 @@
 #include "Types.h"
 #include <string>
 
-class GLFWwindow;
+struct GLFWwindow;
 
 class Window
 {
@@ -23,3 +23,6 @@ private:
 
 	bool should_close_;
 };
+
+#include "ServiceLocator.h"
+SERVICE_LOCATOR_HEADER(Window, WindowLocator)

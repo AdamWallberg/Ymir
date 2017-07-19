@@ -1,15 +1,11 @@
 #include "Graphics/Window.h"
-#include <assert.h>
 
 int main()
 {
 	Window* window = new Window;
-	
-	if (!window->createWindow("Ymir Engine", 1280, 720))
-	{
-		assert(false);
-	}
-	else
+	WindowLocator::provide(window);
+
+	if (window->createWindow("Ymir Engine", 1280, 720))
 	{
 		while (!window->shouldClose())
 		{
@@ -18,6 +14,7 @@ int main()
 		}
 	}
 
+	WindowLocator::provide(nullptr);
 	delete window;
 	return 0;
 }

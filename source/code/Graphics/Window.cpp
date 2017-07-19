@@ -89,3 +89,4 @@ void Window::swapBuffers()
 	glfwSwapBuffers(window_);
 }
 
+SERVICE_LOCATOR_SOURCE(Window, WindowLocator)
