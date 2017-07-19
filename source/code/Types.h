@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 // Typedefs
 typedef char int8;
 typedef short int int16;
