@@ -1,7 +1,11 @@
+#include "Logger.h"
 #include "Graphics/Window.h"
 
 int main()
 {
+	Logger* logger = new Logger;
+	LoggerLocator::provide(logger);
+
 	Window* window = new Window;
 	WindowLocator::provide(window);
 
@@ -16,5 +20,9 @@ int main()
 
 	WindowLocator::provide(nullptr);
 	delete window;
+
+	LoggerLocator::provide(nullptr);
+	delete logger;
+
 	return 0;
 }
