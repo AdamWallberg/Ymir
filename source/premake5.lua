@@ -4,7 +4,7 @@ require "modules/glfw"
 solution("YmirSolution")
 	language "C++"
 	debugdir "$(OutDir)"
-	objdir "build/$(ProjectName)/$(Configuration)/&(Platform)"
+	objdir "build/"
 	targetdir "$(SolutionDir)../app/"
 	targetname "$(ProjectName)_$(Configuration)_$(Platform)"
 	systemversion "10.0.14393.0" 
