@@ -6,3 +6,4 @@
 - Assimp + SOIL
 - Basic rendering
 - Clock
+- Memory tracking
