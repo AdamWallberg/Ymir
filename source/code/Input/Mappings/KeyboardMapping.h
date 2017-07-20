@@ -8,6 +8,7 @@ class Window;
 class KeyboardMapping : public IInputMapping
 {
 public:
+	KeyboardMapping() {}
 	KeyboardMapping(uint key);
 	bool getPressed() const override { return pressed_; }
 	bool getHeld() const override { return held_; }
