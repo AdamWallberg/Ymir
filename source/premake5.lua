@@ -35,7 +35,7 @@ solution("YmirSolution")
 	configuration {}
 	
 	linkoptions {
-		"/NODEFAULTLIB:MSVCRT",
+		--"/NODEFAULTLIB:MSVCRT",
 		"/NODEFAULTLIB:LIBCMT",
 		"/ignore:4099",
 	}
