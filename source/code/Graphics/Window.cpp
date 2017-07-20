@@ -80,7 +80,7 @@ bool Window::createWindow(const char* title, uint width, uint height, bool fulls
 void Window::update()
 {
 	glfwPollEvents();
-	if (glfwGetKey(window_, GLFW_KEY_ESCAPE))
+	if (glfwGetKey(window_, GLFW_KEY_ESCAPE) || glfwWindowShouldClose(window_) == 1)
 		should_close_ = true;
 }
 
