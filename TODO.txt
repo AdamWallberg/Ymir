@@ -4,3 +4,4 @@
 - Assimp + SOIL
 - Basic rendering
 - Clock
+- Dynamic input system
