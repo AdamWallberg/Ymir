@@ -4,9 +4,12 @@
 Application::Application()
 	: logger_(nullptr)
 	, window_(nullptr)
+	, clock_(nullptr)
 	, input_system_(nullptr)
 	, input_controller_(nullptr)
 	, game_state_machine_(nullptr)
+	, frame_timer_(0.f)
+	, second_timer_(0.f)
 {
 }
 
@@ -27,6 +30,10 @@ bool Application::init()
 	window_ = newp Window;
 	WindowLocator::provide(window_);
 	window_->createWindow("Ymir Engine", 1280, 720);
+
+	// Create clock
+	clock_ = new Clock;
+	ClockLocator::provide(clock_);
 
 	// Create input system
 	input_system_ = newp InputSystem;
@@ -54,6 +61,9 @@ void Application::destroy()
 	delete input_system_;
 	InputSystemLocator::provide(nullptr);
 
+	delete clock_;
+	ClockLocator::provide(nullptr);
+
 	delete window_;
 	WindowLocator::provide(nullptr);
 
@@ -72,8 +82,24 @@ void Application::run()
 void Application::update()
 {
 	window_->update();
+	clock_->update();
 	input_controller_->update();
-	game_state_machine_->update(0.f);
+	game_state_machine_->update(clock_->deltaTime());
+
+	// Update timers
+	frame_timer_ += clock_->deltaTime();
+	while (frame_timer_ >= 1.0f / 60.0f)
+	{
+		frame_timer_ -= 1.0f / 60.0f;
+	}
+	
+	second_timer_ += clock_->deltaTime();
+	while (second_timer_ >= 1.0f)
+	{
+		second_timer_ -= 1.0f;
+
+		window_->setTitle("Ymir Engine | FPS: " + std::to_string(INT_S(1.0f / clock_->deltaTime())));
+	}
 
 	window_->swapBuffers();
 }
