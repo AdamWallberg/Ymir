@@ -13,7 +13,7 @@ Window::Window()
 
 Window::~Window()
 {
-
+	glfwTerminate();
 }
 
 bool Window::createWindow(const char* title, uint width, uint height, bool fullscreen, bool vsync)
