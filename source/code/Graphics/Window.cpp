@@ -89,4 +89,9 @@ void Window::swapBuffers()
 	glfwSwapBuffers(window_);
 }
 
+void Window::setTitle(const std::string& title)
+{
+	glfwSetWindowTitle(window_, title.c_str());
+}
+
 SERVICE_LOCATOR_SOURCE(Window, WindowLocator)
