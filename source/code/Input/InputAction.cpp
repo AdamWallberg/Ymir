@@ -1,4 +1,5 @@
 #include "InputAction.h"
+#include "Mappings/IInputMapping.h"
 #include "Math/ymath.h"
 
 InputAction::InputAction()
