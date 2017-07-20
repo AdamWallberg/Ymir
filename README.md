@@ -14,8 +14,12 @@ prettier code. So the development will be really quick up until I start dealing 
   - Slightly fancy logging <br>
   - Memory tracking <br>
   - Fancy input system <br>
+  
 <h3>Planned Features</h3>
   - Deferred lighting, instancing, skeletal animations, fancy postFX, etc... <br>
   - Maybe even PBR <br>
   - Custom block allocator <br>
   - Crème Fraîshe <br>
+  - Controller support <br>
+  - Debug geometry rendering <br>
+  - Simple collision detection with AA bounding boxes etc.. 
