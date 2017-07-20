@@ -12,10 +12,10 @@ prettier code. So the development will be really quick up until I start dealing 
   - Multi-threaded state machine <br>
   - 32 and 64 bit windows support <br>
   - Slightly fancy logging <br>
-
+  - Memory tracking <br>
+  - Fancy input system <br>
 <h3>Planned Features</h3>
   - Deferred lighting, instancing, skeletal animations, fancy postFX, etc... <br>
   - Maybe even PBR <br>
-  - Memory tracking <br>
   - Custom block allocator <br>
-  - Crème Fraîshe
+  - Crème Fraîshe< br>
