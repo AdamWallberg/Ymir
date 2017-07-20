@@ -13,6 +13,9 @@ public:
 	void update();
 	void swapBuffers();
 	bool shouldClose() const { return should_close_; }
+
+	GLFWwindow* getWindow() const { return window_; }
+	GLFWwindow* getThreadContext() const { return thread_context_; }
 private:
 	GLFWwindow* window_;
 	GLFWwindow* thread_context_;
