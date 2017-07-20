@@ -4,4 +4,5 @@
 - Assimp + SOIL
 - Basic rendering
 - Clock
-- Dynamic input system
+- Dynamic input system + mouse mappings
+- Controller support
