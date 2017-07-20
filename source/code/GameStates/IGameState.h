@@ -1,6 +1,6 @@
 #pragma once
 
-class GameStateMachine;
+#include "GameStateMachine.h"
 
 class IGameState
 {

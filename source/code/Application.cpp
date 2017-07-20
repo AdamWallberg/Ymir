@@ -16,6 +16,9 @@ bool Application::init()
 {
 	logger_ = newp Logger;
 	LoggerLocator::provide(logger_);
+#ifdef NDEBUG
+	logger_->setFlag(Logger::FLAG_GAME_STATE, false);
+#endif
 
 	window_ = newp Window;
 	WindowLocator::provide(window_);
