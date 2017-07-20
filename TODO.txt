@@ -1,8 +1,6 @@
 - File System
 - Pool Allocator
-- Input
 - Assimp + SOIL
 - Basic rendering
-- Clock
 - Dynamic input system + mouse mappings
 - Controller support
