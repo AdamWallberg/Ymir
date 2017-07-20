@@ -12,6 +12,7 @@ public:
 		FLAG_IO			= 0x00000004,
 		FLAG_INPUT		= 0x00000008,
 		FLAG_AUDIO		= 0x00000010,
+		FLAG_GAME_STATE = 0x00000020,
 	};
 	Logger();
 	void setFlag(uint flag, bool enabled);
