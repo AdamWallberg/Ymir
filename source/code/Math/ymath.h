@@ -3,6 +3,11 @@
 #define FLOAT_S(X) static_cast<float>(X)
 #define INT_S(X) static_cast<int>(X)
 
+namespace std
+{
+#include <math.h>
+}
+
 namespace pm
 {
 
