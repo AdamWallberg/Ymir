@@ -18,4 +18,4 @@ prettier code. So the development will be really quick up until I start dealing 
   - Deferred lighting, instancing, skeletal animations, fancy postFX, etc... <br>
   - Maybe even PBR <br>
   - Custom block allocator <br>
-  - Crème Fraîshe< br>
+  - Crème Fraîshe <br>
