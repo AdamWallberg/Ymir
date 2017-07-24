@@ -21,4 +21,6 @@ private:
 	std::string path_;
 	std::string directory_;
 	std::vector<Mesh> meshes_;
+
+	friend class ModelSystem;
 };
