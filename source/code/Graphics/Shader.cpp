@@ -38,8 +38,8 @@ void Shader::setupProgram(std::string vertex_name, std::string geometry_name, st
 	// Setup shader names
 	vertex_name = vertex_name + "_v.glsl";
 	if(has_geoemetry) // We might not have a geometry shader
-		geometry_name = geometry_name + "_v.glsl";
-	fragment_name = fragment_name + "_v.glsl";
+		geometry_name = geometry_name + "_g.glsl";
+	fragment_name = fragment_name + "_f.glsl";
 
 	// Load shaders
 	uint vertex_id = loadShaderFromFile(directory, vertex_name, GL_VERTEX_SHADER);
