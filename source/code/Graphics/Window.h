@@ -15,6 +15,8 @@ public:
 	bool shouldClose() const { return should_close_; }
 	const std::string& getTitle() const { return title_; }
 	void setTitle(const std::string& title);
+	uint getWidth() const { return width_; }
+	uint getHeight() const { return height_; }
 	GLFWwindow* getWindow() const { return window_; }
 	GLFWwindow* getThreadContext() const { return thread_context_; }
 private:
