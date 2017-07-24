@@ -1,12 +1,11 @@
 #pragma once
 
+#include "Types.h"
+
 #include "vec2.h"
 #include "vec4.h"
 #include "vec4.h"
 #include "mat4.h"
-
-#define FLOAT_S(X) static_cast<float>(X)
-#define INT_S(X) static_cast<int>(X)
 
 namespace std
 {
@@ -218,6 +217,3 @@ inline float ceilf(const float& value)
 }
 
 }
-
-#undef FLOAT_S
-#undef INT_S
