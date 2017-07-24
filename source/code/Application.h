@@ -6,6 +6,8 @@
 #include "Input/InputSystem.h"
 #include "Input/Controllers/EngineInputController.h"
 #include "GameStates/GameStateMachine.h"
+#include "Graphics/ModelSystem.h"
+#include "Graphics/Renderer.h"
 
 class Application
 {
@@ -27,4 +29,6 @@ private:
 	InputSystem* input_system_;
 	EngineInputController* input_controller_;
 	GameStateMachine* game_state_machine_;
+	ModelSystem* model_system_;
+	Renderer* renderer_;
 };
