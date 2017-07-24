@@ -6,7 +6,6 @@
 #include "Logger.h"
 #include "ModelSystem.h"
 #include "RawModel.h"
-#include "Types.h"
 #include "Math/ymath.h"
 
 Renderer::Renderer()
@@ -127,11 +126,11 @@ void Renderer::render()
 	shader_default_->bind();
 	// TODO: Setup shader uniform matrices
 	shader_default_->setMat4("view_mat", pm::mat4(1.0f).getViewMatrix());
-	shader_default_->setMat4("proj_mat", pm::mat4::perspective(75.0f, (float)window_->getWidth() / (float)window_->getHeight(), 0.1f, 1024.0f));
+	shader_default_->setMat4("proj_mat", pm::mat4::perspective(75.0f, FLOAT_S(window_->getWidth()) / FLOAT_S(window_->getHeight()), 0.1f, 1024.0f));
 	std::map<RawModel*, std::pair<uint, std::vector<Model>>>& models = model_sytem_->getModels();
 	for (auto& it : models)
 	{
-		uint numInstances = it.second.second.size();
+		uint numInstances = UINT_S(it.second.second.size());
 		RawModel* raw_model = it.first;
 		raw_model->draw(shader_default_, numInstances);
 	}
