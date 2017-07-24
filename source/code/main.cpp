@@ -1,5 +1,6 @@
-#include "Application.h"
+#include "Types.h"
 #include "Core.h"
+#include "Application.h"
 int main()
 {
 #ifdef DEBUG 
