@@ -8,3 +8,6 @@
 #else
 #define newp new
 #endif
+
+#include <assert.h>
+#define ymAssert(VALUE) assert(VALUE)
