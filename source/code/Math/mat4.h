@@ -40,10 +40,14 @@ public:
 		struct
 		{
 			// Instead of using padding floats, we align the vectors with 16 bytes
-			_declspec(align(16)) vec3 left;
-			_declspec(align(16)) vec3 up;
-			_declspec(align(16)) vec3 forward;
-			_declspec(align(16)) vec3 translation;
+			vec3 left;
+			float pad0;
+			vec3 up;
+			float pad1;
+			vec3 forward;
+			float pad2;
+			vec3 translation;
+			float pad3;
 		};
 	};
 
