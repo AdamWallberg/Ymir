@@ -4,9 +4,8 @@
 #include <string>
 #include <map>
 #include <vector>
-
-class RawModel;
-class Model;
+#include "RawModel.h"
+#include "Model.h"
 
 class ModelSystem
 {
@@ -20,3 +19,6 @@ public:
 private:
 	std::map<RawModel*, std::pair<uint, std::vector<Model>>> models_;
 };
+
+#include "ServiceLocator.h"
+SERVICE_LOCATOR_HEADER(ModelSystem, ModelSystemLocator)

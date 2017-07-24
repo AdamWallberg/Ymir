@@ -1,6 +1,4 @@
 #include "ModelSystem.h"
-#include "RawModel.h"
-#include "Model.h"
 #include "Core.h"
 #include "GL.h"
 
@@ -78,3 +76,6 @@ void ModelSystem::updateInstanceBuffers()
 		}
 	}
 }
+
+
+SERVICE_LOCATOR_SOURCE(ModelSystem, ModelSystemLocator)
