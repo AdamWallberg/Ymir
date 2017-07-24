@@ -71,17 +71,6 @@ public:
 
 	mat4 operator * (const mat4& other);
 	float& operator [] (unsigned char id);
-
-	void* operator new(size_t i)
-	{
-		return _mm_malloc(i, 16);
-	}
-
-	void operator delete(void* p)
-	{
-		_mm_free(p);
-	}
-
 };
 
 }
