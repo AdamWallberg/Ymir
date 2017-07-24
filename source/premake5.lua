@@ -1,5 +1,7 @@
 require "modules/glew"
 require "modules/glfw"
+require "modules/assimp"
+require "modules/soil"
 
 solution("YmirSolution")
 	language "C++"
@@ -55,3 +57,5 @@ project("Ymir")
 	
 	enable_glew()
 	enable_glfw()
+	enable_assimp()
+	enable_soil()
