@@ -38,7 +38,7 @@ void Mesh::setupMesh()
 	glBindVertexArray(0);
 }
 
-void Mesh::draw(const Shader * shader, uint num_instances, bool use_textures /*= true*/)
+void Mesh::draw(const Shader* shader, uint num_instances, bool use_textures /*= true*/)
 {
 	if (use_textures && textures_.size() > 0)
 	{

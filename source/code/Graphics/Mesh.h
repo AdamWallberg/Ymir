@@ -24,6 +24,7 @@ struct Texture
 
 class Mesh
 {
+public:
 	Mesh(const std::vector<Vertex>& vertices, const std::vector<uint>& indices, const std::vector<Texture>& textures);
 	void draw(const Shader* shader, uint num_instances, bool use_textures = true);
 	uint getVAO() const { return vao_; }
