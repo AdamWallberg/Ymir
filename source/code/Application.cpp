@@ -53,6 +53,7 @@ bool Application::init()
 	model_system_ = newp ModelSystem;
 	ModelSystemLocator::provide(model_system_);
 	Model* model = model_system_->loadModel("test/box.obj");
+	model_system_->updateInstanceBuffers();
 
 	// Create renderer
 	renderer_ = newp Renderer;
