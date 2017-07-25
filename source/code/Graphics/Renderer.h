@@ -21,6 +21,7 @@ private:
 
 	// Shaders
 	Shader* shader_default_;
+	Shader* shader_quad_;
 
 	// Framebuffer
 	uint g_buffer_;

@@ -15,6 +15,7 @@ Renderer::Renderer()
 
 Renderer::~Renderer()
 {
+	delete shader_quad_;
 	delete shader_default_;
 }
 
@@ -31,6 +32,7 @@ void Renderer::init()
 void Renderer::initShaders()
 {
 	shader_default_ = newp Shader("default");
+	shader_quad_ = newp Shader("quad");
 }
 
 void Renderer::initFramebuffer()
@@ -125,7 +127,9 @@ void Renderer::render()
 
 	shader_default_->bind();
 	// TODO: Setup shader uniform matrices
-	shader_default_->setMat4("view_mat", pm::mat4(1.0f).getViewMatrix());
+	pm::mat4 view_matrix = pm::mat4(1.0f);
+	view_matrix.translate(pm::vec3(0.f, 0.f, -10.0f));
+	shader_default_->setMat4("view_mat", view_matrix.getViewMatrix());
 	shader_default_->setMat4("proj_mat", pm::mat4::perspective(75.0f, FLOAT_S(window_->getWidth()) / FLOAT_S(window_->getHeight()), 0.1f, 1024.0f));
 	std::map<RawModel*, std::pair<uint, std::vector<Model>>>& models = model_sytem_->getModels();
 	for (auto& it : models)
@@ -140,7 +144,10 @@ void Renderer::render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, tex_albedo_spec_);
+	glBindTexture(GL_TEXTURE_2D, tex_normal_);
+
+	shader_quad_->bind();
+	shader_quad_->setInt("uTexture", 0);
 
 	glBindVertexArray(screen_quad_vao_);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
