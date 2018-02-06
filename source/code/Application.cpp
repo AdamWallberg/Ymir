@@ -53,6 +53,7 @@ bool Application::init()
 	model_system_ = newp ModelSystem;
 	ModelSystemLocator::provide(model_system_);
 	Model* model = model_system_->loadModel("test/box.obj");
+	model->transform.rotateXYZ(pm::vec3(0, pm::toRadians(45.0f), pm::toRadians(45.0f)));
 	model_system_->updateInstanceBuffers();
 
 	// Create renderer

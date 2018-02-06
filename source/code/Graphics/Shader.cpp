@@ -3,6 +3,7 @@
 #include <vector>
 #include <fstream>
 #include "Logger.h"
+#include "Core.h"
 
 Shader::Shader(const std::string& name)
 {
@@ -46,12 +47,14 @@ void Shader::setupProgram(std::string vertex_name, std::string geometry_name, st
 	uint geoemetry_id = has_geoemetry ? loadShaderFromFile(directory, geometry_name, GL_GEOMETRY_SHADER) : 0;
 	uint fragment_id = loadShaderFromFile(directory, fragment_name, GL_FRAGMENT_SHADER);
 
+
 	// Create and link the program
 	id_ = glCreateProgram();
 	glAttachShader(id_, vertex_id);
 	if (has_geoemetry)
 		glAttachShader(id_, geoemetry_id);
 	glAttachShader(id_, fragment_id);
+	glLinkProgram(id_);
 
 	// Check for errors
 	int result = false;
@@ -78,6 +81,8 @@ void Shader::setupProgram(std::string vertex_name, std::string geometry_name, st
 
 uint Shader::loadShaderFromFile(std::string directory, std::string file_name, int shader_type)
 {
+	LOG("Loading shader: " + file_name, Logger::FLAG_GRAPHICS);
+
 	// Read code
 	std::string code;
 	std::string file_path = directory + file_name;

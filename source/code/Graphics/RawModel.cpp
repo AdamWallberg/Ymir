@@ -4,6 +4,7 @@
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include <SOIL.h>
+#include "Core.h"
 
 RawModel::RawModel(std::string name)
 {
@@ -30,6 +31,7 @@ void RawModel::loadModel(std::string path)
 		LOG_ERROR("ASSIMP: " + std::string(importer.GetErrorString()), Logger::FLAG_IO);
 		return;
 	}
+
 	directory_ = path.substr(0, path.find_last_of('/')) + '/';
 	processNode(scene->mRootNode, scene);
 }
@@ -160,8 +162,8 @@ std::vector<Texture> RawModel::loadMaterialTextures(aiMaterial* material, aiText
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 			glGenerateMipmap(GL_TEXTURE_2D);
 			delete data;
 
@@ -170,5 +172,6 @@ std::vector<Texture> RawModel::loadMaterialTextures(aiMaterial* material, aiText
 			textures.push_back(texture);
 		}
 	}
+
 	return textures;
 }

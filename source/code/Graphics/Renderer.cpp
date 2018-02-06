@@ -141,10 +141,11 @@ void Renderer::render()
 
 	// FULLSCREEN QUAD RENDER PASS
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, tex_normal_);
+	glBindTexture(GL_TEXTURE_2D, tex_albedo_spec_);
 
 	shader_quad_->bind();
 	shader_quad_->setInt("uTexture", 0);
