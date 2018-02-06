@@ -2,6 +2,8 @@
 
 #include "IGameState.h"
 
+class Model;
+
 class GameStateGame : public IGameState
 {
 public:
@@ -12,4 +14,7 @@ public:
 	void onEnter() override;
 	void onExit() override;
 	void update() override;
+
+private:
+	Model* models_[3];
 };

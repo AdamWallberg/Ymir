@@ -128,10 +128,10 @@ void Renderer::render()
 	shader_default_->bind();
 	// TODO: Setup shader uniform matrices
 	pm::mat4 view_matrix = pm::mat4(1.0f);
-	view_matrix.translate(pm::vec3(0.f, 0.f, -10.0f));
+	view_matrix.translate(pm::vec3(0.f, 0.f, -40.0f));
 	shader_default_->setMat4("view_mat", view_matrix.getViewMatrix());
 	shader_default_->setMat4("proj_mat", pm::mat4::perspective(75.0f, FLOAT_S(window_->getWidth()) / FLOAT_S(window_->getHeight()), 0.1f, 1024.0f));
-	std::map<RawModel*, std::pair<uint, std::vector<Model>>>& models = model_sytem_->getModels();
+	std::map<RawModel*, std::pair<uint, std::vector<Model*>>>& models = model_sytem_->getModels();
 	for (auto& it : models)
 	{
 		uint numInstances = UINT_S(it.second.second.size());

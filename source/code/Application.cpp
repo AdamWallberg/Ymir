@@ -45,16 +45,14 @@ bool Application::init()
 	input_controller_ = newp EngineInputController;
 	InputController::provide(input_controller_);
 
-	// Create game state machine 
-	game_state_machine_ = newp GameStateMachine;
-	GameStateMachineLocator::provide(game_state_machine_);
-
 	// Create model system
 	model_system_ = newp ModelSystem;
 	ModelSystemLocator::provide(model_system_);
-	Model* model = model_system_->loadModel("test/box.obj");
-	model->transform.rotateXYZ(pm::vec3(0, pm::toRadians(45.0f), pm::toRadians(45.0f)));
 	model_system_->updateInstanceBuffers();
+
+	// Create game state machine 
+	game_state_machine_ = newp GameStateMachine;
+	GameStateMachineLocator::provide(game_state_machine_);
 
 	// Create renderer
 	renderer_ = newp Renderer;
@@ -117,6 +115,8 @@ void Application::update()
 
 		window_->setTitle("Ymir Engine | FPS: " + std::to_string(INT_S(1.0f / clock_->deltaTime())));
 	}
+
+	model_system_->updateInstanceBuffers();
 
 	renderer_->render();
 
