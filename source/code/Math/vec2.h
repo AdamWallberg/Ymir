@@ -68,8 +68,9 @@ public:
 		// Don't divide by zero
 		if (length != 0.0f)
 		{
-			out.x = x / length;
-			out.y = y / length;
+			float f = 1.0f / length;
+			out.x = x * f;
+			out.y = y * f;
 		}
 
 		return out;

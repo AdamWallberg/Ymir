@@ -100,10 +100,11 @@ public:
 		// Don't divide by zero
 		if (length != 0.0f)
 		{
-			out.x = x / length;
-			out.y = y / length;
-			out.z = z / length;
-			out.w = w / length;
+			float f = 1.0f / length;
+			out.x = x * f;
+			out.y = y * f;
+			out.z = z * f;
+			out.w = w * f;
 		}
 
 		return out;
