@@ -9,6 +9,8 @@ Transform::Transform()
 
 void Transform::SetParent(Transform* parent)
 {
+	if (parent->parent_ == this)
+		return;
 	parent_ = parent;
 	parent->children_.push_back(this);
 }
