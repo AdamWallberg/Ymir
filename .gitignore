@@ -10,5 +10,10 @@ source/utils/deps
 *.db
 *.opendb
 *.filters
+*.user
+*.exe
+*.pdb
+*.ilk
+*.dll
 source/.vs
 source/build
