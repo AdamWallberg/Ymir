@@ -7,7 +7,7 @@ Transform::Transform()
 	world_matrix_ = pm::mat4(1.0f);
 }
 
-void Transform::SetParent(Transform* parent)
+void Transform::setParent(Transform* parent)
 {
 	if (parent->parent_ == this)
 		return;
@@ -15,7 +15,7 @@ void Transform::SetParent(Transform* parent)
 	parent->children_.push_back(this);
 }
 
-void Transform::Update()
+void Transform::update()
 {
 	// Apply parent transform
 	if (parent_)
@@ -30,6 +30,6 @@ void Transform::Update()
 	// Update children
 	for (Transform* child : children_)
 	{
-		child->Update();
+		child->update();
 	}
 }

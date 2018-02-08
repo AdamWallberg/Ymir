@@ -7,6 +7,7 @@
 #include "ModelSystem.h"
 #include "RawModel.h"
 #include "Math/ymath.h"
+#include "Camera/Camera.h"
 
 Renderer::Renderer()
 {
@@ -121,16 +122,16 @@ void Renderer::render()
 {
 	// GEOMETRY RENDER PASS
 	glBindFramebuffer(GL_FRAMEBUFFER, g_buffer_);
-	glClearColor(1.f, 1.f, 1.f, 1.f);
+	glClearColor(0.6f, 0.6f, 0.6f, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 
 	shader_default_->bind();
 	// TODO: Setup shader uniform matrices
-	pm::mat4 view_matrix = pm::mat4(1.0f);
-	view_matrix.translate(pm::vec3(0.f, 0.f, -40.0f));
-	shader_default_->setMat4("view_mat", view_matrix.getViewMatrix());
-	shader_default_->setMat4("proj_mat", pm::mat4::perspective(75.0f, FLOAT_S(window_->getWidth()) / FLOAT_S(window_->getHeight()), 0.1f, 1024.0f));
+	const pm::mat4 view_matrix = MainCam::get()->view_;
+	const pm::mat4 proj_matrix = MainCam::get()->projection_;
+	shader_default_->setMat4("view_mat", view_matrix);
+	shader_default_->setMat4("proj_mat", proj_matrix);
 	std::map<RawModel*, std::pair<uint, std::vector<Model*>>>& models = model_sytem_->getModels();
 	for (auto& it : models)
 	{

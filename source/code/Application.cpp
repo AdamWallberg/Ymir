@@ -34,7 +34,7 @@ bool Application::init()
 	window_->createWindow("Ymir Engine", 1280, 720);
 
 	// Create clock
-	clock_ = new Clock;
+	clock_ = newp Clock;
 	ClockLocator::provide(clock_);
 
 	// Create input system

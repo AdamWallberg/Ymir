@@ -53,13 +53,13 @@ void ModelSystem::updateInstanceBuffers()
 		uint& buffer_id = it.second.first;
 		std::vector<Model*>& model_instances = it.second.second;
 
-		for (Model* m : model_instances)
-		{
-			if (m->transform_->parent_ == nullptr)
-			{
-				m->transform_->Update();
-			}
-		}
+		//for (Model* m : model_instances)
+		//{
+		//	if (m->transform_->parent_ == nullptr)
+		//	{
+		//		m->transform_->Update();
+		//	}
+		//}
 
 		std::vector<pm::mat4> matrices;
 		for (Model* m : model_instances)

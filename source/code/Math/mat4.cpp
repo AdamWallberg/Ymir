@@ -1,4 +1,5 @@
 #include "mat4.h"
+#include "ymath.h"
 
 #define MULTIPLY_THIS( ORDER, RESULT ) \
 if( ORDER == COMBINE_REPLACE ) \
@@ -52,19 +53,19 @@ mat4::~mat4()
 void mat4::translate(const vec3& translation, EMultiplyOrder Order)
 {
 	mat4 Result(1.0f);
-	Result.translation = translation;
+	Result.position = translation;
 
 	MULTIPLY_THIS(Order, Result);
 }
 
 void mat4::rotateZYX(const vec3& axis, EMultiplyOrder Order)
 {
-	float ca = cos(axis.x);
-	float sa = sin(axis.x);
-	float cb = cos(axis.y);
-	float sb = sin(axis.y);
-	float cc = cos(axis.z);
-	float sc = sin(axis.z);
+	float ca = pm::cosRad(axis.x);
+	float sa = pm::sinRad(axis.x);
+	float cb = pm::cosRad(axis.y);
+	float sb = pm::sinRad(axis.y);
+	float cc = pm::cosRad(axis.z);
+	float sc = pm::sinRad(axis.z);
 
 	// ZYX
 	mat4 result(1.0f);
@@ -85,12 +86,12 @@ void mat4::rotateZYX(const vec3& axis, EMultiplyOrder Order)
 
 void mat4::rotateXYZ(const vec3& axis, EMultiplyOrder Order)
 {
-	float ca = cos(axis.x);
-	float sa = sin(axis.x);
-	float cb = cos(axis.y);
-	float sb = sin(axis.y);
-	float cc = cos(axis.z);
-	float sc = sin(axis.z);
+	float ca = pm::cosRad(axis.x);
+	float sa = pm::sinRad(axis.x);
+	float cb = pm::cosRad(axis.y);
+	float sb = pm::sinRad(axis.y);
+	float cc = pm::cosRad(axis.z);
+	float sc = pm::sinRad(axis.z);
 
 	mat4 result(1.0f);
 	result.left.x = cb * cc;
@@ -159,9 +160,9 @@ mat4 mat4::getViewMatrix() const
 	result.forward.y = up.z;
 	result.forward.z = -forward.z;
 
-	result.translation.x = -left.dot(translation);
-	result.translation.y = -up.dot(translation);
-	result.translation.z = forward.dot(translation);
+	result.position.x = -left.dot(position);
+	result.position.y = -up.dot(position);
+	result.position.z = forward.dot(position);
 
 	return result;
 }
@@ -178,9 +179,9 @@ mat4 mat4::orthographic(float left, float right, float bottom, float top, float 
 	result.up.y = 2.0f / H;
 	result.forward.z = -2.0f / D;
 
-	result.translation.x = -((right + left) / W);
-	result.translation.y = -((top + bottom) / H);
-	result.translation.z = -((far + near) / D);
+	result.position.x = -((right + left) / W);
+	result.position.y = -((top + bottom) / H);
+	result.position.z = -((far + near) / D);
 	result.elements[15] = 1.0f;
 
 	return result;
@@ -190,10 +191,10 @@ mat4 mat4::perspective(float fov, float aspectRatio, float near, float far)
 {
 	mat4 result(0.0f);
 
-	result.left.x = (1.0f / tan(fov * 0.5f)) / aspectRatio;
-	result.up.y = 1.0f / tan(fov * 0.5f);
+	result.left.x = (1.0f / pm::tan(fov * 0.5f)) / aspectRatio;
+	result.up.y = 1.0f / pm::tan(fov * 0.5f);
 	result.forward.z = (near + far) / (near - far);
-	result.translation.z = (2.0f * near * far) / (near - far);
+	result.position.z = (2.0f * near * far) / (near - far);
 	result.elements[11] = -1.0f;
 
 	return result;

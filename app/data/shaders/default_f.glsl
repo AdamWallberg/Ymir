@@ -31,6 +31,8 @@ in VS_OUT
 
 void main()
 {
+	vec3 light = vec3(1, -1, 1);
+
 	// Output position
 	gPosition = fs_in.fragPos;
 	
@@ -51,6 +53,14 @@ void main()
 		gAlbedoSpec.a = texture(material.texture_specular, fs_in.uv).r;
 	else
 		gAlbedoSpec.a = 1.0;
+		
+	//gAlbedoSpec.rgb *= clamp(sign(dot(gNormal, light) - 0.5), 0.5, 1);
+	gAlbedoSpec.rgb *= clamp(dot(gNormal, light), 0.5, 1);
+	
+	float numColors = 8.0f;
+	gAlbedoSpec.rgb *= numColors;
+	gAlbedoSpec.rgb = round(gAlbedoSpec.rgb);
+	gAlbedoSpec.rgb /= numColors;
 }
 
 

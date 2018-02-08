@@ -8,9 +8,9 @@ class Transform
 public:
 	Transform();
 
-	void SetParent(Transform* parent);
+	void setParent(Transform* parent);
 
-	void Update();
+	void update();
 
 	pm::mat4 world_matrix_;
 	pm::mat4 local_matrix_;

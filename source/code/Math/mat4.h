@@ -46,7 +46,7 @@ public:
 			float pad1;
 			vec3 forward;
 			float pad2;
-			vec3 translation;
+			vec3 position;
 			float pad3;
 		};
 	};

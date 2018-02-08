@@ -1,6 +1,8 @@
 #pragma once
 
 #include "IGameState.h"
+#include "Types.h"
+#include "Camera/FreecamController.h"
 
 class Model;
 
@@ -16,5 +18,10 @@ public:
 	void update() override;
 
 private:
-	Model* models_[3];
+	// Model test case
+	static const uint NUM_MODELS = 5;
+	Model* models_[NUM_MODELS];
+
+	// Camera test case
+	FreecamController camera_;
 };
