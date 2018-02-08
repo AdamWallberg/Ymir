@@ -8,7 +8,8 @@ class Transform
 public:
 	Transform();
 
-	void setParent(Transform* parent);
+	void setParent(Transform* parent, bool keep_world_position = true);
+	void addChild(Transform* child, bool keep_world_position = true);
 
 	void update();
 

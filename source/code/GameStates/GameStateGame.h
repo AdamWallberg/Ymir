@@ -19,7 +19,7 @@ public:
 
 private:
 	// Model test case
-	static const uint NUM_MODELS = 5;
+	static const uint NUM_MODELS = 4;
 	Model* models_[NUM_MODELS];
 
 	// Camera test case
