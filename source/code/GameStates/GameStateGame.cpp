@@ -12,24 +12,32 @@ GameStateGame::GameStateGame(GameStateMachine* machine)
 	{
 		models_[i] = ModelSystemLocator::get()->loadModel("test/suzanne.obj");
 
-
-		switch (i)
+		if (i != 0)
 		{
-		case 0:
-			models_[i]->transform_->local_matrix_.translate(pm::vec3(-4.0f, 0.0f, 0.0f));
-			models_[i]->transform_->local_matrix_.scale(pm::vec3(2.0f, 2.0f, 2.0f));
-			break;
-		case 1:
-			models_[i]->transform_->local_matrix_.translate(pm::vec3(4.0f, 0.0f, 0.0f));
-			break;
-		case 2:
-			models_[i]->transform_->local_matrix_.translate(pm::vec3(-4.0f, -4.0f, 0.0f));
-			models_[i]->transform_->local_matrix_.scale(pm::vec3(2.0f, 2.0f, 2.0f));
-			break;
-		case 3:
-			models_[i]->transform_->local_matrix_.translate(pm::vec3(4.0f, -4.0f, 0.0f));
-			break;
+			models_[i]->transform_->local_matrix_.translate(pm::vec3(1.0f, -4.0f, 0.0f));
+			models_[i]->transform_->setParent(models_[i - 1]->transform_, false);
 		}
+		else
+		{
+			models_[i]->transform_->local_matrix_.translate(pm::vec3(0.0f, 4.0f, 0.0f));
+		}
+		//switch (i)
+		//{
+		//case 0:
+		//	models_[i]->transform_->local_matrix_.translate(pm::vec3(-4.0f, 0.0f, 0.0f));
+		//	models_[i]->transform_->local_matrix_.scale(pm::vec3(2.0f, 2.0f, 2.0f));
+		//	break;
+		//case 1:
+		//	models_[i]->transform_->local_matrix_.translate(pm::vec3(4.0f, 0.0f, 0.0f));
+		//	break;
+		//case 2:
+		//	models_[i]->transform_->local_matrix_.translate(pm::vec3(-4.0f, -4.0f, 0.0f));
+		//	models_[i]->transform_->local_matrix_.scale(pm::vec3(2.0f, 2.0f, 2.0f));
+		//	break;
+		//case 3:
+		//	models_[i]->transform_->local_matrix_.translate(pm::vec3(4.0f, -4.0f, 0.0f));
+		//	break;
+		//}
 	}	
 }
 
@@ -57,19 +65,22 @@ void GameStateGame::update()
 {
 	camera_.update(ClockLocator::get()->deltaTime());
 
-	float rotationDelta = ClockLocator::get()->deltaTime() * 45.0f;
+	float rotationDelta = pm::toRadians(ClockLocator::get()->deltaTime() * 90.0f);
 
-	static bool has_adopted = false;
-	if (!has_adopted && ClockLocator::get()->time() > 3.0f)
-	{
-		models_[1]->transform_->addChild(models_[0]->transform_, false);
-		models_[3]->transform_->addChild(models_[2]->transform_, true);
-		LOG("Has been adopted!");
-		has_adopted = true;
-	}
+	//static bool has_adopted = false;
+	//if (!has_adopted && ClockLocator::get()->time() > 3.0f)
+	//{
+	//	models_[1]->transform_->addChild(models_[0]->transform_, false);
+	//	models_[3]->transform_->addChild(models_[2]->transform_, true);
+	//	LOG("Has been adopted!");
+	//	has_adopted = true;
+	//}
 
 	for (int i = 0; i < NUM_MODELS; i++)
 	{
+		models_[i]->transform_->local_matrix_.rotateXYZ(pm::vec3(0.0f, rotationDelta, 0.0f));
 		models_[i]->transform_->update();
+		Transform* root = models_[i]->transform_->getRootParent();
+		LOG(std::to_string((int)root));
 	}
 }

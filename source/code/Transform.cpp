@@ -52,6 +52,14 @@ void Transform::addChild(
 	}
 }
 
+Transform* Transform::getRootParent()
+{
+	if (parent_)
+		return parent_->getRootParent();
+	else
+		return this;
+}
+
 void Transform::update()
 {
 	// Apply parent transform

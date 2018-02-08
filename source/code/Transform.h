@@ -10,6 +10,7 @@ public:
 
 	void setParent(Transform* parent, bool keep_world_position = true);
 	void addChild(Transform* child, bool keep_world_position = true);
+	Transform* getRootParent();
 
 	void update();
 
