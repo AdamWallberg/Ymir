@@ -10,4 +10,5 @@ public:
 	void update(float delta_time);
 
 	Camera camera_;
+	float speed_;
 };
