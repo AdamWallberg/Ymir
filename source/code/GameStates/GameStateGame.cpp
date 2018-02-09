@@ -67,18 +67,9 @@ void GameStateGame::update()
 
 	float rotationDelta = pm::toRadians(ClockLocator::get()->deltaTime() * 90.0f);
 
-	//static bool has_adopted = false;
-	//if (!has_adopted && ClockLocator::get()->time() > 3.0f)
-	//{
-	//	models_[1]->transform_->addChild(models_[0]->transform_, false);
-	//	models_[3]->transform_->addChild(models_[2]->transform_, true);
-	//	LOG("Has been adopted!");
-	//	has_adopted = true;
-	//}
-
 	for (int i = 0; i < NUM_MODELS; i++)
 	{
-		//models_[i]->transform_->local_matrix_.rotateXYZ(pm::vec3(0.0f, rotationDelta, 0.0f));
+		models_[i]->transform_->local_matrix_.rotateXYZ(pm::vec3(0.0f, rotationDelta, 0.0f));
 		models_[i]->transform_->update();
 	}
 }

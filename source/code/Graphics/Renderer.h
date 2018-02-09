@@ -5,6 +5,7 @@
 class Shader;
 class Window;
 class ModelSystem;
+class Skybox;
 
 class Renderer
 {
@@ -21,6 +22,7 @@ private:
 
 	// Shaders
 	Shader* shader_default_;
+	Shader* shader_skybox_;
 	Shader* shader_quad_;
 
 	// Framebuffer
@@ -33,6 +35,9 @@ private:
 	// Fullscreen quad
 	uint screen_quad_vao_;
 	uint screen_quad_vbo_;
+
+	// Skybox
+	Skybox* skybox_;
 
 	// Misc
 	Window* window_;

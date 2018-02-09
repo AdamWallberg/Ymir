@@ -8,6 +8,7 @@
 #include "RawModel.h"
 #include "Math/ymath.h"
 #include "Camera/Camera.h"
+#include "Skybox.h"
 
 Renderer::Renderer()
 {
@@ -17,13 +18,19 @@ Renderer::Renderer()
 Renderer::~Renderer()
 {
 	delete shader_quad_;
+	delete shader_skybox_;
 	delete shader_default_;
+
+	delete skybox_;
 }
 
 void Renderer::init()
 {
 	window_ = WindowLocator::get();
 	model_sytem_ = ModelSystemLocator::get();
+
+	// Create skybox
+	skybox_ = newp Skybox("day", "jpg");
 
 	initShaders();
 	initFramebuffer();
@@ -33,6 +40,7 @@ void Renderer::init()
 void Renderer::initShaders()
 {
 	shader_default_ = newp Shader("default");
+	shader_skybox_ = newp Shader("skybox");
 	shader_quad_ = newp Shader("quad");
 }
 
@@ -128,6 +136,8 @@ void Renderer::render()
 	glClearColor(clear_color.r, clear_color.g, clear_color.b, clear_color.a);
 	glClear(camera->clear_flags_);
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 
 	shader_default_->bind();
 	// Setup shader uniform matrices
@@ -162,4 +172,8 @@ void Renderer::render()
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 	glBlitFramebuffer(0, 0, window_->getWidth(), window_->getHeight(), 0, 0, window_->getWidth(), window_->getHeight(), GL_DEPTH_BUFFER_BIT, GL_NEAREST);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	// Render skybox
+	shader_skybox_->bind();
+	skybox_->draw(shader_skybox_);
 }
