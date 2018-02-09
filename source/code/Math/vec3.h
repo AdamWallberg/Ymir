@@ -2,8 +2,8 @@
 
 #include <string>
 
-#include "math.h"
 #include "vec2.h"
+#include "ymath.h"
 
 namespace pm
 {
@@ -60,9 +60,9 @@ public:
 
 	} // lengthSquared
 
-		// Returns a normalized version of this vector. 
-		// normalize() automatically calculates the length
-		// of the vector, which can be stored in a float pointer.
+	// Returns a normalized version of this vector. 
+	// normalize() automatically calculates the length
+	// of the vector, which can be stored in a float pointer.
 	inline const vec3 normalize(float* pOutLength = nullptr) const
 	{
 		vec3 out;
@@ -92,21 +92,27 @@ public:
 
 	} // dot
 
-		// Cross product methods
+	// Cross product methods
 	inline const vec3 cross(const vec3& in) const
 	{
 		return vec3(y * in.z - in.y * z, z * in.x - in.z * x, x * in.y - in.x * y);
 
 	} // cross
 
-		// String conversion
+	// String conversion
 	inline const std::string toString()
 	{
 		return "x: " + std::to_string(x) + " y: " + std::to_string(y) + " z: " + std::to_string(z);
 
 	} // toString
 
-		////////////////////////////////////////////////////////////////
+	// To radians
+	inline const vec3 toRadians() const
+	{
+		return vec3(pm::toRadians(x), pm::toRadians(y), pm::toRadians(z));
+	}
+
+	////////////////////////////////////////////////////////////////
 
 		// Addition operators
 	const vec3 operator + (const vec3& in) const;

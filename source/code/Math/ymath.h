@@ -2,11 +2,6 @@
 
 #include "Types.h"
 
-#include "vec2.h"
-#include "vec4.h"
-#include "vec4.h"
-#include "mat4.h"
-
 namespace std
 {
 #include <math.h>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Math/ymath.h"
+#include "Math/vec4.h"
 
 class Color
 {
