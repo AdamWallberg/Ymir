@@ -1,6 +1,7 @@
 #include "Camera.h"
 #include "Graphics/Window.h"
 #include "Core.h"
+#include "Graphics/GL.h"
 
 Camera::Camera(
 	float fov /*= 75.0f*/,
@@ -11,6 +12,8 @@ Camera::Camera(
 	, aspect_(aspect)
 	, near_(near)
 	, far_(far)
+	, clear_color_(Color::dark_gray)
+	, clear_flags_(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 {
 	transform_ = newp Transform;
 	updateProjection();

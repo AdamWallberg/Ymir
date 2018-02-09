@@ -120,10 +120,13 @@ void Renderer::initScreenQuad()
 
 void Renderer::render()
 {
+	Camera* camera = MainCam::get();
+	const Color& clear_color = camera->clear_color_;
+
 	// GEOMETRY RENDER PASS
 	glBindFramebuffer(GL_FRAMEBUFFER, g_buffer_);
-	glClearColor(0.6f, 0.6f, 0.6f, 1.f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(clear_color.r, clear_color.g, clear_color.b, clear_color.a);
+	glClear(camera->clear_flags_);
 	glEnable(GL_DEPTH_TEST);
 
 	shader_default_->bind();

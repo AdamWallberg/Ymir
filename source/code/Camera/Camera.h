@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Transform.h"
+#include "Graphics/Color.h"
 
 class Camera
 {
@@ -31,6 +32,10 @@ public:
 	float aspect_;
 	float near_;
 	float far_;
+
+	// Clearing
+	Color clear_color_;
+	uint clear_flags_;
 };
 
 #include "ServiceLocator.h"
