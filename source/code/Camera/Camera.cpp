@@ -2,6 +2,7 @@
 #include "Graphics/Window.h"
 #include "Core.h"
 #include "Graphics/GL.h"
+#include "Logger.h"
 
 Camera::Camera(
 	float fov /*= 75.0f*/,
@@ -12,7 +13,7 @@ Camera::Camera(
 	, aspect_(aspect)
 	, near_(near)
 	, far_(far)
-	, clear_color_(Color::dark_gray)
+	, clear_color_(Color::light_gray)
 	, clear_flags_(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 {
 	transform_ = newp Transform;
@@ -37,7 +38,7 @@ void Camera::updateProjection()
 void Camera::update()
 {
 	// Apply rotation
-	transform_->local_matrix_.rotateXYZ(rotation_, pm::mat4::COMBINE_REPLACE);
+	transform_->local_matrix_.rotateZYX(rotation_.toRadians(), pm::mat4::COMBINE_REPLACE);
 
 	// Apply position
 	transform_->local_matrix_.translate(position_);
