@@ -11,4 +11,5 @@ public:
 
 	Camera camera_;
 	float speed_;
+	float rotation_speed_;
 };

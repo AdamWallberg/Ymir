@@ -10,7 +10,7 @@ GameStateGame::GameStateGame(GameStateMachine* machine)
 
 	for (int i = 0; i < NUM_MODELS; i++)
 	{
-		models_[i] = ModelSystemLocator::get()->loadModel("test/suzanne.obj");
+		models_[i] = ModelSystemLocator::get()->loadModel("test/box.obj");
 
 		if (i != 0)
 		{
@@ -78,9 +78,7 @@ void GameStateGame::update()
 
 	for (int i = 0; i < NUM_MODELS; i++)
 	{
-		models_[i]->transform_->local_matrix_.rotateXYZ(pm::vec3(0.0f, rotationDelta, 0.0f));
+		//models_[i]->transform_->local_matrix_.rotateXYZ(pm::vec3(0.0f, rotationDelta, 0.0f));
 		models_[i]->transform_->update();
-		Transform* root = models_[i]->transform_->getRootParent();
-		LOG(std::to_string((int)root));
 	}
 }

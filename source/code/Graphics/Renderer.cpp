@@ -130,9 +130,9 @@ void Renderer::render()
 	glEnable(GL_DEPTH_TEST);
 
 	shader_default_->bind();
-	// TODO: Setup shader uniform matrices
-	const pm::mat4 view_matrix = MainCam::get()->view_;
-	const pm::mat4 proj_matrix = MainCam::get()->projection_;
+	// Setup shader uniform matrices
+	const pm::mat4 view_matrix = camera->view_;
+	const pm::mat4 proj_matrix = camera->projection_;
 	shader_default_->setMat4("view_mat", view_matrix);
 	shader_default_->setMat4("proj_mat", proj_matrix);
 	std::map<RawModel*, std::pair<uint, std::vector<Model*>>>& models = model_sytem_->getModels();
