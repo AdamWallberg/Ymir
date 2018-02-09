@@ -27,6 +27,14 @@ EngineInputController::EngineInputController()
 	ADD_MAPPING((char)GLFW_KEY_SPACE, 1.0f);
 	ADD_MAPPING((char)GLFW_KEY_LEFT_CONTROL, -1.0f);
 
+	CREATE_ACTION("rotate_x");
+	ADD_MAPPING((char)GLFW_KEY_I, -1.0f);
+	ADD_MAPPING((char)GLFW_KEY_K, 1.0f);
+
+	CREATE_ACTION("rotate_y");
+	ADD_MAPPING((char)GLFW_KEY_J, -1.0f);
+	ADD_MAPPING((char)GLFW_KEY_L, 1.0f);
+
 #undef CREATE_ACTION
 #undef ADD_MAPPING
 }
