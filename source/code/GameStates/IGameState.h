@@ -10,6 +10,10 @@ public:
 	{
 	}
 
+	virtual ~IGameState()
+	{
+	}
+
 	virtual void onCreate() = 0;
 	virtual void onDestroy() = 0;
 	virtual void onEnter() = 0;
