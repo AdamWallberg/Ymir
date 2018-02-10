@@ -144,8 +144,8 @@ void Renderer::render()
 	
 	shader_default_->bind();
 	// Setup shader uniform matrices
-	const pm::mat4 view_matrix = camera->view_;
-	const pm::mat4 proj_matrix = camera->projection_;
+	const pm::mat4 view_matrix = camera->view_matrix_;
+	const pm::mat4 proj_matrix = camera->projection_matrix_;
 	shader_default_->setMat4("view_mat", view_matrix);
 	shader_default_->setMat4("proj_mat", proj_matrix);
 	std::map<RawModel*, std::pair<uint, std::vector<Model*>>>& models = model_sytem_->getModels();

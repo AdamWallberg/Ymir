@@ -41,9 +41,9 @@ void Skybox::draw(const Shader* shader)
 
 	// Get view and proj matrices
 	Camera* camera = MainCam::get();
-	pm::mat4 view = camera->view_;
+	pm::mat4 view = camera->view_matrix_;
 	view.position = pm::vec3::zero;
-	const pm::mat4 proj = camera->projection_;
+	const pm::mat4 proj = camera->projection_matrix_;
 	shader->setMat4("view_mat", view);
 	shader->setMat4("proj_mat", proj);
 	glActiveTexture(GL_TEXTURE0);
