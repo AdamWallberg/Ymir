@@ -7,8 +7,6 @@ FreecamController::FreecamController()
 	, rotation_speed_(180.0f)
 {
 	MainCam::provide(&camera_);
-	camera_.projection_type_ = Camera::ORTHOGRAPHIC;
-	camera_.updateProjection();
 }
 
 void FreecamController::update(float delta_time)
