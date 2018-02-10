@@ -318,10 +318,13 @@ mat4 mat4::perspective(float fov, float aspectRatio, float near, float far)
 {
 	mat4 result(0.0f);
 
-	result.left.x = (1.0f / pm::tan(fov * 0.5f)) / aspectRatio;
-	result.up.y = 1.0f / pm::tan(fov * 0.5f);
-	result.forward.z = (near + far) / (near - far);
-	result.position.z = (2.0f * near * far) / (near - far);
+	const float tf = 1.0f / pm::tan(fov * 0.5f);
+	const float fn = far - near;
+
+	result.left.x = tf / aspectRatio;
+	result.up.y = tf;
+	result.forward.z = -(near + far) / fn;
+	result.position.z = -(2.0f * near * far) / fn;
 	result.elements[11] = -1.0f;
 
 	return result;

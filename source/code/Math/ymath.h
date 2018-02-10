@@ -163,6 +163,13 @@ inline float tan(const float& degrees)
 }
 
 
+// Returns tangent from degrees.
+inline float tanRad(const float& degrees)
+{
+	return FLOAT_S(std::tan(degrees));
+}
+
+
 // Returns atan
 inline float atan(const float& tanValue)
 {

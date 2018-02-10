@@ -14,30 +14,13 @@ GameStateGame::GameStateGame(GameStateMachine* machine)
 
 		if (i != 0)
 		{
-			models_[i]->transform_->local_matrix_.translate(pm::vec3(1.0f, -4.0f, 0.0f));
+			models_[i]->transform_->local_matrix_.translate(pm::vec3(0.0f, -4.0f, 0.0f));
 			models_[i]->transform_->setParent(models_[i - 1]->transform_, false);
 		}
 		else
 		{
 			models_[i]->transform_->local_matrix_.translate(pm::vec3(0.0f, 4.0f, 0.0f));
 		}
-		//switch (i)
-		//{
-		//case 0:
-		//	models_[i]->transform_->local_matrix_.translate(pm::vec3(-4.0f, 0.0f, 0.0f));
-		//	models_[i]->transform_->local_matrix_.scale(pm::vec3(2.0f, 2.0f, 2.0f));
-		//	break;
-		//case 1:
-		//	models_[i]->transform_->local_matrix_.translate(pm::vec3(4.0f, 0.0f, 0.0f));
-		//	break;
-		//case 2:
-		//	models_[i]->transform_->local_matrix_.translate(pm::vec3(-4.0f, -4.0f, 0.0f));
-		//	models_[i]->transform_->local_matrix_.scale(pm::vec3(2.0f, 2.0f, 2.0f));
-		//	break;
-		//case 3:
-		//	models_[i]->transform_->local_matrix_.translate(pm::vec3(4.0f, -4.0f, 0.0f));
-		//	break;
-		//}
 	}	
 }
 
@@ -69,7 +52,7 @@ void GameStateGame::update()
 
 	for (int i = 0; i < NUM_MODELS; i++)
 	{
-		models_[i]->transform_->local_matrix_.rotateXYZ(pm::vec3(0.0f, rotationDelta, 0.0f));
+		//models_[i]->transform_->local_matrix_.rotateXYZ(pm::vec3(0.0f, rotationDelta, 0.0f));
 		models_[i]->transform_->update();
 	}
 }

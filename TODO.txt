@@ -1,6 +1,9 @@
 - File System
 - Pool Allocator
-- Assimp + SOIL
-- Basic rendering
-- Dynamic input system + mouse mappings
+- Mouse mappings
 - Controller support
+- Debug geometry
+- UI
+- Window rescale, update buffer sizes
+- Skybox ambient light
+- Fix backface culling bug

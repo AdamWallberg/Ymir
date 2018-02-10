@@ -132,13 +132,16 @@ void Renderer::render()
 	const Color& clear_color = camera->clear_color_;
 
 	// GEOMETRY RENDER PASS
+	glEnable(GL_DEPTH_TEST);
+	//glDepthFunc(GL_LESS);
+
+	glDisable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	
 	glBindFramebuffer(GL_FRAMEBUFFER, g_buffer_);
 	glClearColor(clear_color.r, clear_color.g, clear_color.b, clear_color.a);
 	glClear(camera->clear_flags_);
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-
+	
 	shader_default_->bind();
 	// Setup shader uniform matrices
 	const pm::mat4 view_matrix = camera->view_;

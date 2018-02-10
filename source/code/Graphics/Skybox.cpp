@@ -25,6 +25,8 @@ Skybox::Skybox(std::string name, std::string format)
 
 	// Load box model
 	model_ = newp RawModel("data/models/debug/cube.obj");
+
+	glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 }
 
 Skybox::~Skybox()
