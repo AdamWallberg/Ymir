@@ -2,6 +2,7 @@
 #include "Core.h"
 
 Model::Model()
+	: selected_(false)
 {
 	transform_ = newp Transform;
 }

@@ -18,6 +18,7 @@ public:
 	void updateInstanceBuffers();
 private:
 	std::map<RawModel*, std::pair<uint, std::vector<Model*>>> models_;
+	uint num_models_;
 };
 
 #include "ServiceLocator.h"

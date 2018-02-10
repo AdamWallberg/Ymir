@@ -82,8 +82,20 @@ void Renderer::initFramebuffer()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, GL_TEXTURE_2D, tex_albedo_spec_, 0);
 
-	uint attachments[3] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2 };
-	glDrawBuffers(3, attachments);
+	int error = glGetError();
+
+	// Create object id texture
+	glGenTextures(1, &tex_object_id_);
+	glBindTexture(GL_TEXTURE_2D, tex_object_id_);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_R32UI, window_->getWidth(), window_->getHeight(), 0, GL_RED_INTEGER, GL_UNSIGNED_INT, nullptr);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT3, GL_TEXTURE_2D, tex_object_id_, 0);
+
+	uint attachments[4] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3 };
+	glDrawBuffers(4, attachments);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -210,9 +222,29 @@ void Renderer::resize()
 
 	glBindTexture(GL_TEXTURE_2D, tex_albedo_spec_);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, window_->getWidth(), window_->getHeight(), 0, GL_RGBA, GL_FLOAT, nullptr);
+
+	glBindTexture(GL_TEXTURE_2D, tex_object_id_);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_R32UI, window_->getWidth(), window_->getHeight(), 0, GL_RED_INTEGER, GL_UNSIGNED_INT, nullptr);
 	
 	glViewport(0, 0, window_->getWidth(), window_->getHeight());
 	float aspect = width / FLOAT_S(height);
 	MainCam::get()->aspect_ = aspect;
 	MainCam::get()->updateProjection();
 }
+
+uint Renderer::getObjectIDAt(uint x, uint y)
+{
+	int error = glGetError();
+	glBindTexture(GL_TEXTURE_2D, tex_albedo_spec_);
+	uint pixel;
+	//float pixel[3];
+	int size = sizeof(uint);
+	glBindFramebuffer(GL_READ_FRAMEBUFFER, g_buffer_);
+	glReadBuffer(GL_COLOR_ATTACHMENT3);
+	glReadPixels(x, window_->getHeight() - y, 1, 1, GL_RED_INTEGER, GL_UNSIGNED_INT, &pixel);
+	//glReadPixels(x, y, 1, 1, GL_RGBA, GL_FLOAT, &pixel);
+	error = glGetError();
+	return pixel;
+}
+
+SERVICE_LOCATOR_SOURCE(Renderer, RendererLocator)

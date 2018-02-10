@@ -6,6 +6,8 @@ layout (location = 2) in vec2 aUV;
 layout (location = 3) in vec3 aTangent;
 layout (location = 4) in vec3 aBitangent;
 layout (location = 5) in mat4 aInstanceMatrix;
+layout (location = 9) in uint aID;
+layout (location = 10) in float aSelected;
 
 uniform mat4 view_mat;
 uniform mat4 proj_mat;
@@ -16,6 +18,8 @@ out VS_OUT
 	vec3 fragPos;
 	mat3 TBN;
 	vec3 normal;
+	flat uint id;
+	float selected;
 } vs_out;
 
 void main()
@@ -33,6 +37,9 @@ void main()
 
 	mat3 normalMatrix = transpose(inverse(mat3(view_mat * aInstanceMatrix)));
 	vs_out.normal = normalMatrix * aNormal;
+	
+	vs_out.id = aID;
+	vs_out.selected = aSelected;
 	
 	gl_Position = proj_mat * view_mat * worldPos;
 }

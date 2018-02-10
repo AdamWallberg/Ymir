@@ -4,6 +4,7 @@
 #include <experimental/filesystem>
 
 ModelSystem::ModelSystem()
+	: num_models_(0)
 {
 }
 
@@ -44,9 +45,11 @@ Model* ModelSystem::loadModel(std::string path)
 		glGenBuffers(1, &models_[raw_model].first);
 	}
 
-	Model* model = newp Model;
-	models_[raw_model].second.push_back(model);
+	num_models_++;
 
+	Model* model = newp Model;
+	model->id_ = num_models_;
+	models_[raw_model].second.push_back(model);
 	return model;
 }
 
@@ -66,14 +69,24 @@ void ModelSystem::updateInstanceBuffers()
 		//	}
 		//}
 
-		std::vector<pm::mat4> matrices;
+		struct InstanceData
+		{
+			pm::mat4 matrix;
+			uint id;
+			float selected;
+		};
+		std::vector<InstanceData> instances;
 		for (Model* m : model_instances)
 		{
-			matrices.push_back(m->transform_->world_matrix_);
+			InstanceData data;
+			data.matrix = m->transform_->world_matrix_;
+			data.id = m->id_;
+			data.selected = FLOAT_S(m->selected_);
+			instances.push_back(data);
 		}
 
 		glBindBuffer(GL_ARRAY_BUFFER, buffer_id);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(pm::mat4) * matrices.size(), &matrices[0].elements[0], GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(InstanceData) * instances.size(), &instances[0], GL_STATIC_DRAW);
 
 		for (uint i = 0; i < raw_model->meshes_.size(); i++)
 		{
@@ -81,18 +94,24 @@ void ModelSystem::updateInstanceBuffers()
 			glBindVertexArray(vao);
 
 			glEnableVertexAttribArray(5);
-			glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, sizeof(pm::mat4), (void*)0);
+			glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, sizeof(InstanceData), (void*)0);
 			glEnableVertexAttribArray(6);
-			glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(pm::mat4), (void*)(sizeof(pm::vec4)));
+			glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(InstanceData), (void*)(sizeof(pm::vec4)));
 			glEnableVertexAttribArray(7);
-			glVertexAttribPointer(7, 4, GL_FLOAT, GL_FALSE, sizeof(pm::mat4), (void*)(sizeof(pm::vec4) * 2));
+			glVertexAttribPointer(7, 4, GL_FLOAT, GL_FALSE, sizeof(InstanceData), (void*)(sizeof(pm::vec4) * 2));
 			glEnableVertexAttribArray(8);
-			glVertexAttribPointer(8, 4, GL_FLOAT, GL_FALSE, sizeof(pm::mat4), (void*)(sizeof(pm::vec4) * 3));
+			glVertexAttribPointer(8, 4, GL_FLOAT, GL_FALSE, sizeof(InstanceData), (void*)(sizeof(pm::vec4) * 3));
+			glEnableVertexAttribArray(9);
+			glVertexAttribIPointer(9, 1, GL_UNSIGNED_INT, sizeof(InstanceData), (void*)(sizeof(pm::vec4) * 4));
+			glEnableVertexAttribArray(10);
+			glVertexAttribPointer(10, 1, GL_FLOAT, GL_FALSE, sizeof(InstanceData), (void*)(sizeof(pm::vec4) * 4 + sizeof(uint)));
 
 			glVertexAttribDivisor(5, 1);
 			glVertexAttribDivisor(6, 1);
 			glVertexAttribDivisor(7, 1);
 			glVertexAttribDivisor(8, 1);
+			glVertexAttribDivisor(9, 1);
+			glVertexAttribDivisor(10, 1);
 
 			glBindVertexArray(0);
 		}

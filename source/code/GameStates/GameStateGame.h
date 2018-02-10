@@ -3,6 +3,7 @@
 #include "IGameState.h"
 #include "Types.h"
 #include "Camera/FreecamController.h"
+#include <vector>
 
 class Model;
 
@@ -19,8 +20,9 @@ public:
 
 private:
 	// Model test case
-	static const uint NUM_MODELS = 4;
-	Model* models_[NUM_MODELS];
+	static const uint NUM_MODELS = 12;
+	std::vector<Model*> models_;
+	Model* selected_model_;
 
 	// Camera test case
 	FreecamController camera_;

@@ -15,6 +15,8 @@ public:
 
 	void render();
 	void resize();
+
+	uint getObjectIDAt(uint x, uint y);
 private:
 	void init();
 	void initShaders();
@@ -33,6 +35,7 @@ private:
 	uint tex_position_;
 	uint tex_normal_;
 	uint tex_albedo_spec_;
+	uint tex_object_id_;
 	uint render_buffer_;
 
 	// Fullscreen quad
@@ -46,3 +49,6 @@ private:
 	Window* window_;
 	ModelSystem* model_sytem_;
 };
+
+#include "ServiceLocator.h"
+SERVICE_LOCATOR_HEADER(Renderer, RendererLocator);

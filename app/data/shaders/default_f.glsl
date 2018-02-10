@@ -3,6 +3,7 @@
 layout (location = 0) out vec3 gPosition;
 layout (location = 1) out vec3 gNormal;
 layout (location = 2) out vec4 gAlbedoSpec;
+layout (location = 3) out uint gID;
 
 struct Material
 {
@@ -27,6 +28,8 @@ in VS_OUT
 	vec3 fragPos;
 	mat3 TBN;
 	vec3 normal;
+	flat uint id;
+	float selected;
 } fs_in;
 
 void main()
@@ -51,6 +54,13 @@ void main()
 		gAlbedoSpec.a = texture(material.texture_specular, fs_in.uv).r;
 	else
 		gAlbedoSpec.a = 1.0;
+		
+	if(fs_in.selected > 0.5)
+	{
+		gAlbedoSpec.rgb = vec3(1.0, 1.0, 0.0);
+	}
+		
+	gID = fs_in.id;
 }
 
 

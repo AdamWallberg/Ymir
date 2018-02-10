@@ -56,6 +56,7 @@ bool Application::init()
 
 	// Create renderer
 	renderer_ = newp Renderer;
+	RendererLocator::provide(renderer_);
 
 	return true;
 }
