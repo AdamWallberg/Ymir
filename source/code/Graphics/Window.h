@@ -19,6 +19,7 @@ public:
 	uint getHeight() const { return height_; }
 	GLFWwindow* getWindow() const { return window_; }
 	GLFWwindow* getThreadContext() const { return thread_context_; }
+	bool hasResized() const { return has_resized_; }
 private:
 	GLFWwindow* window_;
 	GLFWwindow* thread_context_;
@@ -27,6 +28,10 @@ private:
 	std::string title_;
 
 	bool should_close_;
+	bool has_resized_;
+
+	static void onWindowResize(GLFWwindow* window, int width, int height);
+	static void onFileDropped(GLFWwindow* window, int num_files, const char** directories);
 };
 
 #include "ServiceLocator.h"

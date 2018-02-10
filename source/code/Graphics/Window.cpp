@@ -1,5 +1,7 @@
 #include "Window.h"
 #include "GL.h"
+#include "Logger.h"
+#include "ModelSystem.h"
 
 Window::Window()
 	: window_(nullptr)
@@ -8,6 +10,7 @@ Window::Window()
 	, height_(0)
 	, title_("")
 	, should_close_(false)
+	, has_resized_(false)
 {
 }
 
@@ -74,6 +77,12 @@ bool Window::createWindow(const char* title, uint width, uint height, bool fulls
 		return false;
 	}
 
+	// Set resize callback
+	glfwSetWindowSizeCallback(window_, onWindowResize);
+
+	// Set drop callback
+	glfwSetDropCallback(window_, onFileDropped);
+
 	return true;
 }
 
@@ -87,11 +96,45 @@ void Window::update()
 void Window::swapBuffers()
 {
 	glfwSwapBuffers(window_);
+	has_resized_ = false;
 }
 
 void Window::setTitle(const std::string& title)
 {
 	glfwSetWindowTitle(window_, title.c_str());
+}
+
+
+void Window::onWindowResize(GLFWwindow* window, int width, int height)
+{
+	Window* w = WindowLocator::get();
+	w->width_ = width;
+	w->height_ = height;
+	w->has_resized_ = true;
+}
+
+void Window::onFileDropped(GLFWwindow* window, int num_files, const char** directories)
+{
+	// TODO: Handle this using a file system or similar
+	for (uint i = 0; i < num_files; i++)
+	{
+		std::string path = directories[i];
+		std::string extension = path.substr(path.find_last_of(".") + 1);
+
+		// Convert all backslashes to forward slashes
+		size_t pos = 0;
+		while ((pos = path.find("\\", pos)) != std::string::npos)
+		{
+			path.replace(pos, 1, "/");
+			pos += 1;
+		}
+
+		// Handle loading of obj files
+		if (extension == "obj")
+		{
+			ModelSystemLocator::get()->loadModel(path);
+		}
+	}
 }
 
 SERVICE_LOCATOR_SOURCE(Window, WindowLocator)

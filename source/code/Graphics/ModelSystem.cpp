@@ -1,6 +1,7 @@
 #include "ModelSystem.h"
 #include "Core.h"
 #include "GL.h"
+#include <experimental/filesystem>
 
 ModelSystem::ModelSystem()
 {
@@ -20,7 +21,11 @@ ModelSystem::~ModelSystem()
 
 Model* ModelSystem::loadModel(std::string path)
 {
-	path = "data/models/" + path;
+	std::experimental::filesystem::path p(path);
+	if (p.is_relative())
+	{
+		path = "data/models/" + path;
+	}
 
 	RawModel* raw_model = nullptr;
 	for (auto& it : models_)

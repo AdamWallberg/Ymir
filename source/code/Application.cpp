@@ -118,6 +118,10 @@ void Application::update()
 
 	model_system_->updateInstanceBuffers();
 
+	if (window_->hasResized())
+	{
+		renderer_->resize();
+	}
 	renderer_->render();
 
 	window_->swapBuffers();

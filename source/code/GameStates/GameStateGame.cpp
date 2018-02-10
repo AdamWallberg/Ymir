@@ -8,20 +8,20 @@ GameStateGame::GameStateGame(GameStateMachine* machine)
 {
 	camera_.camera_.position_ = pm::vec3(0.0f, 0.0f, -20.0f);
 
-	for (int i = 0; i < NUM_MODELS; i++)
-	{
-		models_[i] = ModelSystemLocator::get()->loadModel("test/box.obj");
-
-		if (i != 0)
-		{
-			models_[i]->transform_->local_matrix_.translate(pm::vec3(0.0f, -4.0f, 0.0f));
-			models_[i]->transform_->setParent(models_[i - 1]->transform_, false);
-		}
-		else
-		{
-			models_[i]->transform_->local_matrix_.translate(pm::vec3(0.0f, 4.0f, 0.0f));
-		}
-	}	
+	//for (int i = 0; i < NUM_MODELS; i++)
+	//{
+	//	models_[i] = ModelSystemLocator::get()->loadModel("test/box.obj");
+	//
+	//	if (i != 0)
+	//	{
+	//		models_[i]->transform_->local_matrix_.translate(pm::vec3(0.0f, -4.0f, 0.0f));
+	//		models_[i]->transform_->setParent(models_[i - 1]->transform_, false);
+	//	}
+	//	else
+	//	{
+	//		models_[i]->transform_->local_matrix_.translate(pm::vec3(0.0f, 4.0f, 0.0f));
+	//	}
+	//}	
 }
 
 void GameStateGame::onCreate()
@@ -50,9 +50,9 @@ void GameStateGame::update()
 
 	float rotationDelta = pm::toRadians(ClockLocator::get()->deltaTime() * 90.0f);
 
-	for (int i = 0; i < NUM_MODELS; i++)
-	{
-		//models_[i]->transform_->local_matrix_.rotateXYZ(pm::vec3(0.0f, rotationDelta, 0.0f));
-		models_[i]->transform_->update();
-	}
+	//for (int i = 0; i < NUM_MODELS; i++)
+	//{
+	//	//models_[i]->transform_->local_matrix_.rotateXYZ(pm::vec3(0.0f, rotationDelta, 0.0f));
+	//	models_[i]->transform_->update();
+	//}
 }

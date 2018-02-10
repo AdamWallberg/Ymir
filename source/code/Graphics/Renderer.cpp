@@ -17,6 +17,8 @@ Renderer::Renderer()
 
 Renderer::~Renderer()
 {
+	destroyFramebuffer();
+
 	delete shader_quad_;
 	delete shader_skybox_;
 	delete shader_default_;
@@ -126,6 +128,15 @@ void Renderer::initScreenQuad()
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(sizeof(float) * 2));
 }
 
+void Renderer::destroyFramebuffer()
+{
+	glDeleteBuffers(1, &render_buffer_);
+	glDeleteTextures(1, &tex_albedo_spec_);
+	glDeleteTextures(1, &tex_normal_);
+	glDeleteTextures(1, &tex_position_);
+	glDeleteFramebuffers(1, &g_buffer_);
+}
+
 void Renderer::render()
 {
 	Camera* camera = MainCam::get();
@@ -179,4 +190,29 @@ void Renderer::render()
 	// Render skybox
 	shader_skybox_->bind();
 	skybox_->draw(shader_skybox_);
+}
+
+void Renderer::resize()
+{
+	int width = window_->getWidth();
+	int height = window_->getHeight();
+
+	// Resize framebuffer
+	glBindRenderbuffer(GL_RENDERBUFFER, render_buffer_);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
+	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+	glBindTexture(GL_TEXTURE_2D, tex_position_);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, window_->getWidth(), window_->getHeight(), 0, GL_RGB, GL_FLOAT, nullptr);
+
+	glBindTexture(GL_TEXTURE_2D, tex_normal_);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, window_->getWidth(), window_->getHeight(), 0, GL_RGB, GL_FLOAT, nullptr);
+
+	glBindTexture(GL_TEXTURE_2D, tex_albedo_spec_);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, window_->getWidth(), window_->getHeight(), 0, GL_RGBA, GL_FLOAT, nullptr);
+	
+	glViewport(0, 0, window_->getWidth(), window_->getHeight());
+	float aspect = width / FLOAT_S(height);
+	MainCam::get()->aspect_ = aspect;
+	MainCam::get()->updateProjection();
 }

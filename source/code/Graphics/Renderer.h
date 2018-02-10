@@ -14,11 +14,14 @@ public:
 	~Renderer();
 
 	void render();
+	void resize();
 private:
 	void init();
 	void initShaders();
 	void initFramebuffer();
 	void initScreenQuad();
+
+	void destroyFramebuffer();
 
 	// Shaders
 	Shader* shader_default_;
