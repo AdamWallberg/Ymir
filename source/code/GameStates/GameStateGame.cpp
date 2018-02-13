@@ -70,7 +70,7 @@ void GameStateGame::update()
 			double x, y;
 			glfwGetCursorPos(WindowLocator::get()->getWindow(), &x, &y);
 
-			uint id = RendererLocator::get()->getObjectIDAt(x, y);
+			uint id = RendererLocator::get()->getObjectIDAt(INT_S(x), INT_S(y));
 			if (id <= models_.size())
 			{
 				auto it = std::find_if(models_.begin(), models_.end(), [&id](const Model* obj) {return obj->id_ == id; });
@@ -79,7 +79,7 @@ void GameStateGame::update()
 				{
 					if (selected_model_)
 						selected_model_->selected_ = false;
-					int index = std::distance(models_.begin(), it);
+					int64 index = (int64)std::distance(models_.begin(), it);
 					selected_model_ = models_[index];
 					selected_model_->selected_ = true;
 				}

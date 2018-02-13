@@ -32,7 +32,7 @@ bool Engine::init()
 	logger_ = newp Logger(this);
 
 	// Create window
-	window_ = newp Window;
+	window_ = newp Window(this);
 	window_->createWindow("Ymir Engine", 1280, 720);
 
 	// Create clock

@@ -1,13 +1,14 @@
 #pragma once
 
+#include "ISubSystem.h"
 #include "Types.h"
 
 struct GLFWwindow;
 
-class Window
+class Window : public ISubSystem
 {
 public:
-	Window();
+	Window(Engine* engine);
 	~Window();
 	bool createWindow(const char* title, uint width, uint height, bool fullscreen = false, bool vsync = false);
 	void update();

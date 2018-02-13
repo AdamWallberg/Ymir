@@ -3,8 +3,9 @@
 #include "Logger.h"
 #include "ModelSystem.h"
 
-Window::Window()
-	: window_(nullptr)
+Window::Window(Engine* engine)
+	: ISubSystem(engine)
+	, window_(nullptr)
 	, thread_context_(nullptr)
 	, width_(0)
 	, height_(0)
@@ -116,7 +117,7 @@ void Window::onWindowResize(GLFWwindow* window, int width, int height)
 void Window::onFileDropped(GLFWwindow* window, int num_files, const char** directories)
 {
 	// TODO: Handle this using a file system or similar
-	for (uint i = 0; i < num_files; i++)
+	for (int i = 0; i < num_files; i++)
 	{
 		std::string path = directories[i];
 		std::string extension = path.substr(path.find_last_of(".") + 1);

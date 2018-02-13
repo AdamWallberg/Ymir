@@ -29,7 +29,7 @@ bool Application::init()
 #endif
 
 	// Create window
-	window_ = newp Window;
+	window_ = newp Window(nullptr);
 	WindowLocator::provide(window_);
 	window_->createWindow("Ymir Engine", 1280, 720);
 
