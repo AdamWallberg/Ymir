@@ -41,7 +41,8 @@ void main()
 	gNormal = texture(material.texture_normal, fs_in.uv).rgb;
 	gNormal = normalize(gNormal * 2.0 - 1.0);
 	gNormal = normalize(fs_in.TBN * gNormal);
-	gNormal = normalize(fs_in.normal);
+	gNormal = gNormal * 0.5 + 0.5;
+	//gNormal = normalize(fs_in.normal);
 
 	// Output color
 	if(material.texture_diffuse_bound)
