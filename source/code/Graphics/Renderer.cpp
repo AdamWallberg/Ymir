@@ -82,8 +82,6 @@ void Renderer::initFramebuffer()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, GL_TEXTURE_2D, tex_albedo_spec_, 0);
 
-	int error = glGetError();
-
 	// Create object id texture
 	glGenTextures(1, &tex_object_id_);
 	glBindTexture(GL_TEXTURE_2D, tex_object_id_);
@@ -206,8 +204,8 @@ void Renderer::render()
 
 void Renderer::resize()
 {
-	int width = window_->getWidth();
-	int height = window_->getHeight();
+	const int width = window_->getWidth();
+	const int height = window_->getHeight();
 
 	// Resize framebuffer
 	glBindRenderbuffer(GL_RENDERBUFFER, render_buffer_);
@@ -215,18 +213,18 @@ void Renderer::resize()
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
 	glBindTexture(GL_TEXTURE_2D, tex_position_);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, window_->getWidth(), window_->getHeight(), 0, GL_RGB, GL_FLOAT, nullptr);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, width, height, 0, GL_RGB, GL_FLOAT, nullptr);
 
 	glBindTexture(GL_TEXTURE_2D, tex_normal_);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, window_->getWidth(), window_->getHeight(), 0, GL_RGB, GL_FLOAT, nullptr);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, width, height, 0, GL_RGB, GL_FLOAT, nullptr);
 
 	glBindTexture(GL_TEXTURE_2D, tex_albedo_spec_);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, window_->getWidth(), window_->getHeight(), 0, GL_RGBA, GL_FLOAT, nullptr);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, width, height, 0, GL_RGBA, GL_FLOAT, nullptr);
 
 	glBindTexture(GL_TEXTURE_2D, tex_object_id_);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_R32UI, window_->getWidth(), window_->getHeight(), 0, GL_RED_INTEGER, GL_UNSIGNED_INT, nullptr);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_R32UI, width, height, 0, GL_RED_INTEGER, GL_UNSIGNED_INT, nullptr);
 	
-	glViewport(0, 0, window_->getWidth(), window_->getHeight());
+	glViewport(0, 0, width, height);
 	float aspect = width / FLOAT_S(height);
 	MainCam::get()->aspect_ = aspect;
 	MainCam::get()->updateProjection();
@@ -234,16 +232,12 @@ void Renderer::resize()
 
 uint Renderer::getObjectIDAt(uint x, uint y)
 {
-	int error = glGetError();
 	glBindTexture(GL_TEXTURE_2D, tex_albedo_spec_);
 	uint pixel;
-	//float pixel[3];
 	int size = sizeof(uint);
 	glBindFramebuffer(GL_READ_FRAMEBUFFER, g_buffer_);
 	glReadBuffer(GL_COLOR_ATTACHMENT3);
 	glReadPixels(x, window_->getHeight() - y, 1, 1, GL_RED_INTEGER, GL_UNSIGNED_INT, &pixel);
-	//glReadPixels(x, y, 1, 1, GL_RGBA, GL_FLOAT, &pixel);
-	error = glGetError();
 	return pixel;
 }
 
