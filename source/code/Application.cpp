@@ -23,7 +23,7 @@ bool Application::init()
 {
 	// Create logger
 	logger_ = newp Logger(nullptr);
-	LoggerLocator::provide(logger_);
+	//LoggerLocator::provide(logger_);
 #ifdef NDEBUG
 	logger_->setFlag(Logger::FLAG_GAME_STATE, false);
 #endif
@@ -34,7 +34,7 @@ bool Application::init()
 	window_->createWindow("Ymir Engine", 1280, 720);
 
 	// Create clock
-	clock_ = newp Clock;
+	clock_ = newp Clock(nullptr);
 	ClockLocator::provide(clock_);
 
 	// Create input system
@@ -84,7 +84,7 @@ void Application::destroy()
 	WindowLocator::provide(nullptr);
 
 	delete logger_;
-	LoggerLocator::provide(nullptr);
+	//LoggerLocator::provide(nullptr);
 }
 
 void Application::run()

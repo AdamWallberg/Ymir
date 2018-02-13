@@ -29,20 +29,22 @@ private:
 	uint flags_error_;
 };
 
+
+/*
 #include "ServiceLocator.h"
-SERVICE_LOCATOR_HEADER(Logger, LoggerLocator)
+SERVICE_LOCATOR_HEADER(Logger, LoggerLocator)*/
 
 inline void LOG(const std::string& message, uint flags = Logger::FLAG_DEFAULT)
 {
-	LoggerLocator::get()->logTrace(message, flags);
+	LOGGER->logTrace(message, flags);
 }
 
 inline void LOG_WARNING(const std::string& message, uint flags = Logger::FLAG_DEFAULT)
 {
-	LoggerLocator::get()->logWarning(message, flags);
+	LOGGER->logWarning(message, flags);
 }
 
 inline void LOG_ERROR(const std::string& message, uint flags = Logger::FLAG_DEFAULT)
 {
-	LoggerLocator::get()->logError(message, flags);
+	LOGGER->logError(message, flags);
 }

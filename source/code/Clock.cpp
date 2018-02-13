@@ -2,8 +2,9 @@
 #include "Graphics/GL.h"
 #include "Types.h"
 
-Clock::Clock()
-	: delta_time_(0.0f)
+Clock::Clock(Engine* engine)
+	: ISubSystem(engine)
+	, delta_time_(0.0f)
 	, time_(0.0f)
 	, last_time_(0.0)
 {

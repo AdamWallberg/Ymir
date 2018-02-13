@@ -1,6 +1,5 @@
 #include "Window.h"
 #include "GL.h"
-#include "Logger.h"
 #include "ModelSystem.h"
 
 Window::Window(Engine* engine)

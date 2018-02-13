@@ -62,5 +62,6 @@ void Logger::logError(const std::string& message, uint flags /* = FLAG_DEFAULT *
 		printf(("ERROR: " + message + "\n").c_str());
 	}
 }
+/*
 
-SERVICE_LOCATOR_SOURCE(Logger, LoggerLocator)
+SERVICE_LOCATOR_SOURCE(Logger, LoggerLocator)*/

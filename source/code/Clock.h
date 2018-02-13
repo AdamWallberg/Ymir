@@ -1,11 +1,13 @@
 #pragma once
 
+#include "ISubSystem.h"
+
 class Window;
 
-class Clock
+class Clock : public ISubSystem
 {
 public:
-	Clock();
+	Clock(Engine* engine);
 	void update();
 	float deltaTime() const { return delta_time_; }
 	float time() const { return time_; }

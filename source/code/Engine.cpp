@@ -10,6 +10,8 @@
 #include "Graphics/ModelSystem.h"
 #include "Graphics/Renderer.h"
 
+Engine* Engine::engine_ = nullptr;
+
 Engine::Engine()
 	: logger_(nullptr)
 	, window_(nullptr)
@@ -20,10 +22,12 @@ Engine::Engine()
 	, model_system_(nullptr)
 	, renderer_(nullptr)
 {
+	engine_ = this;
 }
 
 Engine::~Engine()
 {
+	engine_ = nullptr;
 }
 
 bool Engine::init()
@@ -36,7 +40,7 @@ bool Engine::init()
 	window_->createWindow("Ymir Engine", 1280, 720);
 
 	// Create clock
-	clock_ = newp Clock;
+	clock_ = newp Clock(this);
 
 	// Create input system
 	input_system_ = newp InputSystem;
@@ -100,4 +104,10 @@ void Engine::update()
 	renderer_->render();
 
 	window_->swapBuffers();
+}
+
+Engine& Engine::get()
+{
+	assert(engine_ && "Engine not created!");
+	return *engine_;
 }

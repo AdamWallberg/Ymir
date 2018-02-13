@@ -11,6 +11,10 @@ class GameStateMachine;
 class ModelSystem;
 class Renderer;
 
+#define ENGINE Engine::get()
+#define LOGGER ENGINE.logger_
+#define CLOCK ENGINE.clock_
+
 class Engine
 {
 public:
@@ -21,9 +25,6 @@ public:
 	void destroy();
 	void run();
 
-private:
-	void update();
-
 	Logger* logger_;
 	Window* window_;
 	Clock* clock_;
@@ -32,4 +33,11 @@ private:
 	GameStateMachine* game_state_machine_;
 	ModelSystem* model_system_;
 	Renderer* renderer_;
+
+	static Engine& get();
+
+private:
+	void update();
+
+	static Engine* engine_;
 };
