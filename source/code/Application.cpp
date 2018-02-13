@@ -22,7 +22,7 @@ Application::~Application()
 bool Application::init()
 {
 	// Create logger
-	logger_ = newp Logger;
+	logger_ = newp Logger(nullptr);
 	LoggerLocator::provide(logger_);
 #ifdef NDEBUG
 	logger_->setFlag(Logger::FLAG_GAME_STATE, false);

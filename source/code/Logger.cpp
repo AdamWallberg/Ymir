@@ -1,7 +1,8 @@
 #include "Logger.h"
 
-Logger::Logger()
-	: flags_trace_(-1) // Set all bits to true
+Logger::Logger(Engine* engine)
+	: ISubSystem(engine)
+	, flags_trace_(-1) // Set all bits to true
 	, flags_warning_(-1)
 	, flags_error_(-1)
 {

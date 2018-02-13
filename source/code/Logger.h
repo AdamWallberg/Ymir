@@ -1,8 +1,9 @@
 #pragma once
 
 #include "Types.h"
+#include "ISubSystem.h"
 
-class Logger
+class Logger : public ISubSystem
 {
 public:
 	enum : unsigned int
@@ -14,7 +15,7 @@ public:
 		FLAG_AUDIO		= 0x00000010,
 		FLAG_GAME_STATE = 0x00000020,
 	};
-	Logger();
+	Logger(Engine* engine);
 	void setFlag(uint flag, bool enabled);
 	void setFlagTrace(uint flag, bool enabled);
 	void setFlagWarning(uint flag, bool enabled);
