@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ISubSystem.h"
+
 #include "Types.h"
 #include <string>
 #include <map>
@@ -7,10 +9,10 @@
 #include "RawModel.h"
 #include "Model.h"
 
-class ModelSystem
+class ModelSystem : public ISubSystem
 {
 public:
-	ModelSystem();
+	ModelSystem(Engine* engine);
 	~ModelSystem();
 
 	Model* loadModel(std::string path);
@@ -20,6 +22,3 @@ private:
 	std::map<RawModel*, std::pair<uint, std::vector<Model*>>> models_;
 	uint num_models_;
 };
-
-#include "ServiceLocator.h"
-SERVICE_LOCATOR_HEADER(ModelSystem, ModelSystemLocator)

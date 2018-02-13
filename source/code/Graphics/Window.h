@@ -34,6 +34,3 @@ private:
 	static void onWindowResize(GLFWwindow* window, int width, int height);
 	static void onFileDropped(GLFWwindow* window, int num_files, const char** directories);
 };
-
-#include "ServiceLocator.h"
-SERVICE_LOCATOR_HEADER(Window, WindowLocator)

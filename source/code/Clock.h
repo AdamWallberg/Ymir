@@ -16,6 +16,3 @@ private:
 	float time_;
 	double last_time_;
 };
-
-#include "ServiceLocator.h"
-SERVICE_LOCATOR_HEADER(Clock, ClockLocator)

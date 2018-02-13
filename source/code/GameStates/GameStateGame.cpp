@@ -14,7 +14,7 @@ GameStateGame::GameStateGame(GameStateMachine* machine)
 
 	for (int i = 0; i < NUM_MODELS; i++)
 	{
-		models_.push_back(ModelSystemLocator::get()->loadModel("test/box.obj"));
+		models_.push_back(MODEL_SYSTEM->loadModel("test/box.obj"));
 	
 		if (i != 0)
 		{
@@ -50,9 +50,9 @@ void GameStateGame::onExit()
 
 void GameStateGame::update()
 {
-	camera_.update(ClockLocator::get()->deltaTime());
+	camera_.update(CLOCK->deltaTime());
 
-	float rotationDelta = pm::toRadians(ClockLocator::get()->deltaTime() * 90.0f);
+	float rotationDelta = pm::toRadians(CLOCK->deltaTime() * 90.0f);
 
 	for (int i = 0; i < NUM_MODELS; i++)
 	{
@@ -62,15 +62,15 @@ void GameStateGame::update()
 
 	// Handle model selection
 	static bool pressed = false;
-	if (glfwGetMouseButton(WindowLocator::get()->getWindow(), 0) == GLFW_PRESS)
+	if (glfwGetMouseButton(WINDOW->getWindow(), 0) == GLFW_PRESS)
 	{
 		if (!pressed)
 		{
 			pressed = true;
 			double x, y;
-			glfwGetCursorPos(WindowLocator::get()->getWindow(), &x, &y);
+			glfwGetCursorPos(WINDOW->getWindow(), &x, &y);
 
-			uint id = RendererLocator::get()->getObjectIDAt(INT_S(x), INT_S(y));
+			uint id = RENDERER->getObjectIDAt(INT_S(x), INT_S(y));
 			if (id <= models_.size())
 			{
 				auto it = std::find_if(models_.begin(), models_.end(), [&id](const Model* obj) {return obj->id_ == id; });

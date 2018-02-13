@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ISubSystem.h"
+
 #include "Types.h"
 
 class Shader;
@@ -7,10 +9,10 @@ class Window;
 class ModelSystem;
 class Skybox;
 
-class Renderer
+class Renderer : public ISubSystem
 {
 public:
-	Renderer();
+	Renderer(Engine* engine);
 	~Renderer();
 
 	void render();
@@ -44,11 +46,4 @@ private:
 
 	// Skybox
 	Skybox* skybox_;
-
-	// Misc
-	Window* window_;
-	ModelSystem* model_sytem_;
 };
-
-#include "ServiceLocator.h"
-SERVICE_LOCATOR_HEADER(Renderer, RendererLocator);

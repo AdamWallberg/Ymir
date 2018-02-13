@@ -1,17 +1,16 @@
 #pragma once
 
+#include "ISubSystem.h"
+
 #include <map>
 
 #include "Mappings/KeyboardMapping.h"
 
-class InputSystem
+class InputSystem : public ISubSystem
 {
 public:
-	InputSystem();
+	InputSystem(Engine* engine);
 	IInputMapping* getKeyboardMapping(const char key);
 private:
 	std::map<char, KeyboardMapping> mappings_;
 };
-
-#include "ServiceLocator.h"
-SERVICE_LOCATOR_HEADER(InputSystem, InputSystemLocator)

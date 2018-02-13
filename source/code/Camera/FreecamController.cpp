@@ -11,7 +11,7 @@ FreecamController::FreecamController()
 
 void FreecamController::update(float delta_time)
 {
-	EngineInputController* input = InputController::get();
+	EngineInputController* input = INPUT;
 	const pm::mat4& cam_mat = camera_.transform_->local_matrix_;
 
 	// Get input

@@ -5,7 +5,7 @@
 
 EngineInputController::EngineInputController()
 {
-	InputSystem* input_system = InputSystemLocator::get();
+	InputSystem* input_system = INPUT_SYSTEM;
 	InputAction* current_action = nullptr;
 
 #define CREATE_ACTION(NAME) \
@@ -46,5 +46,3 @@ void EngineInputController::update()
 		it.second.update();
 	}
 }
-
-SERVICE_LOCATOR_SOURCE(EngineInputController, InputController)

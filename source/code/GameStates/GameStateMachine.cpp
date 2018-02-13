@@ -6,8 +6,9 @@
 #include "Graphics/Window.h"
 #include "Graphics/GL.h"
 
-GameStateMachine::GameStateMachine()
-	: current_state_(nullptr)
+GameStateMachine::GameStateMachine(Engine* engine)
+	: ISubSystem(engine)
+	, current_state_(nullptr)
 	, next_state_(nullptr)
 	, loading_(false)
 	, loading_thread_(false)
@@ -82,10 +83,8 @@ void GameStateMachine::changeState(const char * state)
 
 void GameStateMachine::unloadCurrentStateAndLoadNext(GameStateMachine* machine)
 {
-	glfwMakeContextCurrent(WindowLocator::get()->getThreadContext());
+	glfwMakeContextCurrent(WINDOW->getThreadContext());
 	machine->current_state_->onDestroy();
 	machine->next_state_->onCreate();
 	machine->loading_ = false;
 }
-
-SERVICE_LOCATOR_SOURCE(GameStateMachine, GameStateMachineLocator)

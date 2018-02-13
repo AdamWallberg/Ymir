@@ -22,5 +22,3 @@ void Clock::update()
 	}
 	time_ += delta_time_;
 }
-
-SERVICE_LOCATOR_SOURCE(Clock, ClockLocator)

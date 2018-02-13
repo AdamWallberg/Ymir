@@ -1,14 +1,16 @@
 #pragma once
 
+#include "ISubSystem.h"
+
 #include <map>
 #include <thread>
 
 class IGameState;
 
-class GameStateMachine
+class GameStateMachine : public ISubSystem
 {
 public:
-	GameStateMachine();
+	GameStateMachine(Engine* engine);
 	~GameStateMachine();
 	void update(float delta_time);
 	void changeState(const char* state);
@@ -22,6 +24,3 @@ private:
 
 	static void unloadCurrentStateAndLoadNext(GameStateMachine* machine);
 };
-
-#include "ServiceLocator.h"
-SERVICE_LOCATOR_HEADER(GameStateMachine, GameStateMachineLocator)

@@ -16,7 +16,6 @@ public:
 	float getValue() const override { return FLOAT_S(held_); }
 	void update() override;
 private:
-	Window* window_;
 	uint key_;
 	bool pressed_;
 	bool held_;

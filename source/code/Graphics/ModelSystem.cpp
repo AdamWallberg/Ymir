@@ -3,8 +3,9 @@
 #include "GL.h"
 #include <experimental/filesystem>
 
-ModelSystem::ModelSystem()
-	: num_models_(0)
+ModelSystem::ModelSystem(Engine* engine)
+	: ISubSystem(engine)
+	, num_models_(0)
 {
 }
 
@@ -117,6 +118,3 @@ void ModelSystem::updateInstanceBuffers()
 		}
 	}
 }
-
-
-SERVICE_LOCATOR_SOURCE(ModelSystem, ModelSystemLocator)

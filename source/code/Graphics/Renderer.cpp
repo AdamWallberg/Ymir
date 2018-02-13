@@ -10,7 +10,8 @@
 #include "Camera/Camera.h"
 #include "Skybox.h"
 
-Renderer::Renderer()
+Renderer::Renderer(Engine* engine)
+	: ISubSystem(engine)
 {
 	init();
 }
@@ -28,9 +29,6 @@ Renderer::~Renderer()
 
 void Renderer::init()
 {
-	window_ = WindowLocator::get();
-	model_sytem_ = ModelSystemLocator::get();
-
 	// Create skybox
 	skybox_ = newp Skybox("day", "jpg");
 
@@ -55,7 +53,7 @@ void Renderer::initFramebuffer()
 	// Create position texture
 	glGenTextures(1, &tex_position_);
 	glBindTexture(GL_TEXTURE_2D, tex_position_);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, window_->getWidth(), window_->getHeight(), 0, GL_RGB, GL_FLOAT, nullptr);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, WINDOW->getWidth(), WINDOW->getHeight(), 0, GL_RGB, GL_FLOAT, nullptr);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
@@ -65,7 +63,7 @@ void Renderer::initFramebuffer()
 	// Create normal texture
 	glGenTextures(1, &tex_normal_);
 	glBindTexture(GL_TEXTURE_2D, tex_normal_);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, window_->getWidth(), window_->getHeight(), 0, GL_RGB, GL_FLOAT, nullptr);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, WINDOW->getWidth(), WINDOW->getHeight(), 0, GL_RGB, GL_FLOAT, nullptr);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
@@ -75,7 +73,7 @@ void Renderer::initFramebuffer()
 	// Create color texture
 	glGenTextures(1, &tex_albedo_spec_);
 	glBindTexture(GL_TEXTURE_2D, tex_albedo_spec_);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, window_->getWidth(), window_->getHeight(), 0, GL_RGBA, GL_FLOAT, nullptr);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WINDOW->getWidth(), WINDOW->getHeight(), 0, GL_RGBA, GL_FLOAT, nullptr);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
@@ -85,7 +83,7 @@ void Renderer::initFramebuffer()
 	// Create object id texture
 	glGenTextures(1, &tex_object_id_);
 	glBindTexture(GL_TEXTURE_2D, tex_object_id_);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_R32UI, window_->getWidth(), window_->getHeight(), 0, GL_RED_INTEGER, GL_UNSIGNED_INT, nullptr);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_R32UI, WINDOW->getWidth(), WINDOW->getHeight(), 0, GL_RED_INTEGER, GL_UNSIGNED_INT, nullptr);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
@@ -100,7 +98,7 @@ void Renderer::initFramebuffer()
 	// Create render buffer object
 	glGenRenderbuffers(1, &render_buffer_);
 	glBindRenderbuffer(GL_RENDERBUFFER, render_buffer_);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, window_->getWidth(), window_->getHeight());
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, WINDOW->getWidth(), WINDOW->getHeight());
 
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, render_buffer_);
@@ -169,7 +167,7 @@ void Renderer::render()
 	const pm::mat4 proj_matrix = camera->projection_matrix_;
 	shader_default_->setMat4("view_mat", view_matrix);
 	shader_default_->setMat4("proj_mat", proj_matrix);
-	std::map<RawModel*, std::pair<uint, std::vector<Model*>>>& models = model_sytem_->getModels();
+	std::map<RawModel*, std::pair<uint, std::vector<Model*>>>& models = MODEL_SYSTEM->getModels();
 	for (auto& it : models)
 	{
 		uint numInstances = UINT_S(it.second.second.size());
@@ -194,7 +192,7 @@ void Renderer::render()
 	// Blit g_buffer depth to backbuffer depth, so we can forward render after previous passes
 	glBindFramebuffer(GL_READ_FRAMEBUFFER, g_buffer_);
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-	glBlitFramebuffer(0, 0, window_->getWidth(), window_->getHeight(), 0, 0, window_->getWidth(), window_->getHeight(), GL_DEPTH_BUFFER_BIT, GL_NEAREST);
+	glBlitFramebuffer(0, 0, WINDOW->getWidth(), WINDOW->getHeight(), 0, 0, WINDOW->getWidth(), WINDOW->getHeight(), GL_DEPTH_BUFFER_BIT, GL_NEAREST);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	// Render skybox
@@ -204,8 +202,8 @@ void Renderer::render()
 
 void Renderer::resize()
 {
-	const int width = window_->getWidth();
-	const int height = window_->getHeight();
+	const int width = WINDOW->getWidth();
+	const int height = WINDOW->getHeight();
 
 	// Resize framebuffer
 	glBindRenderbuffer(GL_RENDERBUFFER, render_buffer_);
@@ -237,8 +235,6 @@ uint Renderer::getObjectIDAt(uint x, uint y)
 	int size = sizeof(uint);
 	glBindFramebuffer(GL_READ_FRAMEBUFFER, g_buffer_);
 	glReadBuffer(GL_COLOR_ATTACHMENT3);
-	glReadPixels(x, window_->getHeight() - y, 1, 1, GL_RED_INTEGER, GL_UNSIGNED_INT, &pixel);
+	glReadPixels(x, WINDOW->getHeight() - y, 1, 1, GL_RED_INTEGER, GL_UNSIGNED_INT, &pixel);
 	return pixel;
 }
-
-SERVICE_LOCATOR_SOURCE(Renderer, RendererLocator)

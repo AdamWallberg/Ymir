@@ -11,9 +11,14 @@ class GameStateMachine;
 class ModelSystem;
 class Renderer;
 
-#define ENGINE Engine::get()
-#define LOGGER ENGINE.logger_
-#define CLOCK ENGINE.clock_
+#define ENGINE			Engine::get()
+#define LOGGER			ENGINE.logger_
+#define CLOCK			ENGINE.clock_
+#define INPUT_SYSTEM	ENGINE.input_system_
+#define INPUT			ENGINE.input_controller_
+#define MODEL_SYSTEM	ENGINE.model_system_
+#define WINDOW			ENGINE.window_
+#define RENDERER		ENGINE.renderer_
 
 class Engine
 {

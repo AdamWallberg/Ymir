@@ -15,6 +15,3 @@ public:
 private:
 	std::map<std::string, InputAction> actions_;
 };
-
-#include "ServiceLocator.h"
-SERVICE_LOCATOR_HEADER(EngineInputController, InputController)

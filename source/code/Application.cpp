@@ -30,33 +30,26 @@ bool Application::init()
 
 	// Create window
 	window_ = newp Window(nullptr);
-	WindowLocator::provide(window_);
 	window_->createWindow("Ymir Engine", 1280, 720);
 
 	// Create clock
 	clock_ = newp Clock(nullptr);
-	ClockLocator::provide(clock_);
 
 	// Create input system
-	input_system_ = newp InputSystem;
-	InputSystemLocator::provide(input_system_);
+	input_system_ = newp InputSystem(nullptr);
 
 	// Create input controller
 	input_controller_ = newp EngineInputController;
-	InputController::provide(input_controller_);
 
 	// Create model system
-	model_system_ = newp ModelSystem;
-	ModelSystemLocator::provide(model_system_);
+	model_system_ = newp ModelSystem(nullptr);
 	model_system_->updateInstanceBuffers();
 
 	// Create game state machine 
-	game_state_machine_ = newp GameStateMachine;
-	GameStateMachineLocator::provide(game_state_machine_);
+	game_state_machine_ = newp GameStateMachine(nullptr);
 
 	// Create renderer
-	renderer_ = newp Renderer;
-	RendererLocator::provide(renderer_);
+	renderer_ = newp Renderer(nullptr);
 
 	return true;
 }
@@ -66,25 +59,18 @@ void Application::destroy()
 	delete renderer_;
 
 	delete model_system_;
-	ModelSystemLocator::provide(nullptr);
 
 	delete game_state_machine_;
-	GameStateMachineLocator::provide(nullptr);
 
 	delete input_controller_;
-	InputController::provide(nullptr);
 
 	delete input_system_;
-	InputSystemLocator::provide(nullptr);
 
 	delete clock_;
-	ClockLocator::provide(nullptr);
 
 	delete window_;
-	WindowLocator::provide(nullptr);
 
 	delete logger_;
-	//LoggerLocator::provide(nullptr);
 }
 
 void Application::run()

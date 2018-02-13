@@ -43,20 +43,20 @@ bool Engine::init()
 	clock_ = newp Clock(this);
 
 	// Create input system
-	input_system_ = newp InputSystem;
+	input_system_ = newp InputSystem(this);
 
 	// Create input controller
 	input_controller_ = newp EngineInputController;
 
 	// Create model system
-	model_system_ = newp ModelSystem;
+	model_system_ = newp ModelSystem(this);
 	model_system_->updateInstanceBuffers();
 
 	// Create game state machine 
-	game_state_machine_ = newp GameStateMachine;
+	game_state_machine_ = newp GameStateMachine(this);
 
 	// Create renderer
-	renderer_ = newp Renderer;
+	renderer_ = newp Renderer(this);
 
 	return true;
 }

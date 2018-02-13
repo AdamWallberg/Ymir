@@ -1,9 +1,9 @@
 #include "InputSystem.h"
 #include "Mappings/KeyboardMapping.h"
 
-InputSystem::InputSystem()
+InputSystem::InputSystem(Engine* engine)
+	: ISubSystem(engine)
 {
-
 }
 
 IInputMapping* InputSystem::getKeyboardMapping(const char key)
@@ -15,5 +15,3 @@ IInputMapping* InputSystem::getKeyboardMapping(const char key)
 
 	return &mappings_[key];
 }
-
-SERVICE_LOCATOR_SOURCE(InputSystem, InputSystemLocator)

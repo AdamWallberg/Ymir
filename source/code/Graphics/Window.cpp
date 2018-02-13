@@ -107,7 +107,7 @@ void Window::setTitle(const std::string& title)
 
 void Window::onWindowResize(GLFWwindow* window, int width, int height)
 {
-	Window* w = WindowLocator::get();
+	Window* w = WINDOW;
 	w->width_ = width;
 	w->height_ = height;
 	w->has_resized_ = true;
@@ -132,9 +132,7 @@ void Window::onFileDropped(GLFWwindow* window, int num_files, const char** direc
 		// Handle loading of obj files
 		if (extension == "obj")
 		{
-			ModelSystemLocator::get()->loadModel(path);
+			MODEL_SYSTEM->loadModel(path);
 		}
 	}
 }
-
-SERVICE_LOCATOR_SOURCE(Window, WindowLocator)

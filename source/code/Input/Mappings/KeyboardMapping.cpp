@@ -4,18 +4,16 @@
 
 KeyboardMapping::KeyboardMapping(uint key)
 	: IInputMapping()
-	, window_(nullptr)
 	, key_(key)
 	, pressed_(false)
 	, held_(false)
 	, released_(false)
 {
-	window_ = WindowLocator::get();
 }
 
 void KeyboardMapping::update()
 {
-	int state = glfwGetKey(window_->getWindow(), key_);
+	int state = glfwGetKey(WINDOW->getWindow(), key_);
 
 	if (state == GLFW_PRESS)
 	{
